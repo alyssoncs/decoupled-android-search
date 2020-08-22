@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">Decoupled Android Search</string>
+    <string name="invalid_search_filter">Invalid search filter</string>
+    <string name="empty_search_filter">Empty search filter</string>
+</resources>
