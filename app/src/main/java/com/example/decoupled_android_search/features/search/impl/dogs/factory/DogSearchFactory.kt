@@ -6,6 +6,7 @@ import com.example.decoupled_android_search.features.search.contract.SearchFacto
 import com.example.decoupled_android_search.features.search.contract.SearchFilterIntent
 import com.example.decoupled_android_search.features.search.impl.dogs.filter.DogFilter
 import com.example.decoupled_android_search.features.search.impl.dogs.filter.DogFilterActivity
+import com.example.decoupled_android_search.features.search.impl.dogs.ui.fragment.DogSearchFragment
 import kotlinx.android.parcel.Parcelize
 
 @Parcelize
@@ -27,6 +28,6 @@ class DogSearchFactory: SearchFactory {
     override fun createSearchableFragment(
         filter: SearchFilterIntent.SearchFilter
     ): SearchContract.SearchableFragment<SearchFilterIntent.SearchFilter> {
-        TODO("Not yet implemented")
+        return DogSearchFragment().newInstance(filter)
     }
 }
