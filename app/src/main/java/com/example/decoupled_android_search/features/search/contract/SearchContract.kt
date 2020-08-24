@@ -20,7 +20,7 @@ interface SearchContract {
                 "${SearchableFragment::class.qualifiedName}.extra.search-filter"
         }
 
-        lateinit var searchableActivity: SearchableActivity
+        protected lateinit var searchableActivity: SearchableActivity
 
         abstract fun createSearchableFragment(): SearchableFragment<Filter>
 
@@ -32,7 +32,7 @@ interface SearchContract {
             }
         }
 
-        fun getSearchFilter(): Filter? {
+        protected fun getSearchFilter(): Filter? {
             val nullableFilter: SearchFilterIntent.SearchFilter? = getFilter()
 
             return if (nullableFilter == null) {
