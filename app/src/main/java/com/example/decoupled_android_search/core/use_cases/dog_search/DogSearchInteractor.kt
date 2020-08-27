@@ -11,7 +11,7 @@ class DogSearchInteractor(
         return try {
             repository.getAllBreeds()
         } catch (e: PaginatedDogRepository.SearchException) {
-            throw SearchException()
+            throw DogSearchUseCase.SearchException()
         }
     }
 
@@ -19,7 +19,7 @@ class DogSearchInteractor(
         return try {
             repository.getSubBreeds(breed)
         } catch (e: PaginatedDogRepository.SearchException) {
-            throw SearchException()
+            throw DogSearchUseCase.SearchException()
         }
     }
 
@@ -27,7 +27,7 @@ class DogSearchInteractor(
         return try {
             repository.getBreedImagesByPage(breed, page)
         } catch (e: PaginatedDogRepository.SearchException) {
-            throw SearchException()
+            throw DogSearchUseCase.SearchException()
         }
     }
 
@@ -35,9 +35,8 @@ class DogSearchInteractor(
         return try {
             repository.getSubBreedImagesByPage(subBreed, page)
         } catch (e: PaginatedDogRepository.SearchException) {
-            throw SearchException()
+            throw DogSearchUseCase.SearchException()
         }
     }
 
-    class SearchException: Throwable()
 }

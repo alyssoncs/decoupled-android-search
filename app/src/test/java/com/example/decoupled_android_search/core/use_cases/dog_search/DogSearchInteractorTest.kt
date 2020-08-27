@@ -49,9 +49,7 @@ class DogSearchInteractorTest {
         given(repository.getAllBreeds())
             .willAnswer{throw PaginatedDogRepository.SearchException()}
 
-        assertThrows(DogSearchInteractor.SearchException::class.java) {
-            useCase.getBreeds()
-        }
+        assertGetBreedsThrowsSearchException()
     }
 
     @Test
@@ -79,9 +77,7 @@ class DogSearchInteractorTest {
         given(repository.getSubBreeds(any()))
             .willAnswer{throw PaginatedDogRepository.SearchException()}
 
-        assertThrows(DogSearchInteractor.SearchException::class.java) {
-            useCase.getSubBreeds(Breed("hound"))
-        }
+        assertGetSubBreedsThrowsSearchException(Breed("hound"))
     }
 
     @ParameterizedTest
@@ -100,9 +96,10 @@ class DogSearchInteractorTest {
         given(repository.getBreedImagesByPage(any(), any<Int>()))
             .willAnswer {throw PaginatedDogRepository.SearchException()}
 
-        assertThrows(DogSearchInteractor.SearchException::class.java) {
-            useCase.getImages(Breed("akita"), 1)
-        }
+        assterGetBreedImagesThrowsSearchException(
+            breed = Breed("akita"),
+            page = 1
+        )
     }
 
     @ParameterizedTest
@@ -121,11 +118,33 @@ class DogSearchInteractorTest {
         given(repository.getSubBreedImagesByPage(any(), any<Int>()))
             .willAnswer {throw PaginatedDogRepository.SearchException()}
 
-        assertThrows(DogSearchInteractor.SearchException::class.java) {
-            useCase.getImages(
-                SubBreed(Breed("bulldog"), "english"),
-                1
-            )
+        assertGetSubBreedImagesThrowsSearchException(
+            subBreed = SubBreed(Breed("bulldog"), "english"),
+            page = 1
+        )
+    }
+
+    private fun assertGetBreedsThrowsSearchException() {
+        assertThrows(DogSearchUseCase.SearchException::class.java) {
+            useCase.getBreeds()
+        }
+    }
+
+    private fun assertGetSubBreedsThrowsSearchException(breed: Breed) {
+        assertThrows(DogSearchUseCase.SearchException::class.java) {
+            useCase.getSubBreeds(breed)
+        }
+    }
+
+    private fun assterGetBreedImagesThrowsSearchException(breed: Breed, page: Int) {
+        assertThrows(DogSearchUseCase.SearchException::class.java) {
+            useCase.getImages(breed, page)
+        }
+    }
+
+    private fun assertGetSubBreedImagesThrowsSearchException(subBreed: SubBreed, page: Int) {
+        assertThrows(DogSearchUseCase.SearchException::class.java) {
+            useCase.getImages(subBreed, page)
         }
     }
 }

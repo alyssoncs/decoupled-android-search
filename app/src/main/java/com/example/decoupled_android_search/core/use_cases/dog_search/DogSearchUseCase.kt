@@ -7,6 +7,8 @@ interface DogSearchUseCase {
     fun getSubBreeds(breed: Breed): List<SubBreed>
     fun getImages(breed: Breed, page: Int): List<URL>
     fun getImages(subBreed: SubBreed, page: Int): List<URL>
+
+    class SearchException: Throwable()
 }
 
 data class Breed(val name: String)
