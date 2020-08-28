@@ -11,7 +11,6 @@ interface SearchContract {
         fun hideLoadingAnimation()
         fun setAppBarTitle(title: String)
         fun notifyInvalidFilter()
-        fun notifyEmptyFilter()
     }
 
     abstract class SearchableFragment<out Filter: SearchFilterIntent.SearchFilter>: Fragment() {
@@ -87,8 +86,6 @@ interface SearchContract {
             override fun setAppBarTitle(title: String) { }
 
             override fun notifyInvalidFilter() { }
-
-            override fun notifyEmptyFilter() { }
         }
     }
 }

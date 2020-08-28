@@ -77,10 +77,6 @@ class SearchActivity : AppCompatActivity(), SearchContract.SearchableActivity {
         Toast.makeText(this, R.string.invalid_search_filter, Toast.LENGTH_LONG).show()
     }
 
-    override fun notifyEmptyFilter() {
-        Toast.makeText(this, R.string.empty_search_filter, Toast.LENGTH_LONG).show()
-    }
-
     private fun initViews() {
         initAppBar()
         initFab()

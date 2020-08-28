@@ -1,7 +1,5 @@
 package com.example.decoupled_android_search.features.search.impl.dogs.filter
 
-import android.os.Parcel
-import android.os.Parcelable
 import com.example.decoupled_android_search.features.search.contract.SearchFilterIntent
 import kotlinx.android.parcel.Parcelize
 
@@ -17,4 +15,6 @@ class DogFilter(
     override fun isEmpty(): Boolean {
         return breed.isEmpty() && subBreed.isEmpty()
     }
+
+    fun hasSubBreed() = subBreed.isNotBlank()
 }
