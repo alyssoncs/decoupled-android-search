@@ -1,12 +1,11 @@
-package com.example.decoupled_android_search.features.search.impl.dogs.ui.fragment
+package com.example.decoupled_android_search.features.search.impl.dogs.ui.search_results.fragment
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
-import com.example.decoupled_android_search.features.search.impl.dogs.ui.presenter.DogSearchPresenter
-import com.example.decoupled_android_search.features.search.impl.dogs.ui.view.DogSearchView
+import com.example.decoupled_android_search.features.search.impl.dogs.ui.search_results.presenter.DogSearchPresenter
+import com.example.decoupled_android_search.features.search.impl.dogs.ui.search_results.view.DogSearchView
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.cancel
 import kotlinx.coroutines.launch
 
 class DogSearchPresenterDispatcher(

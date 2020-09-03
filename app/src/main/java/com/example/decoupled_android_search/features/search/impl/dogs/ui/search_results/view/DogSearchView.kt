@@ -1,4 +1,4 @@
-package com.example.decoupled_android_search.features.search.impl.dogs.ui.view
+package com.example.decoupled_android_search.features.search.impl.dogs.ui.search_results.view
 
 import java.net.URL
 

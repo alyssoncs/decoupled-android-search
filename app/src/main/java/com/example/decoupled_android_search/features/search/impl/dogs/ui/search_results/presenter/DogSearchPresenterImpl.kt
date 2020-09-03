@@ -1,10 +1,10 @@
-package com.example.decoupled_android_search.features.search.impl.dogs.ui.presenter
+package com.example.decoupled_android_search.features.search.impl.dogs.ui.search_results.presenter
 
 import com.example.decoupled_android_search.core.use_cases.dog_search.Breed
 import com.example.decoupled_android_search.core.use_cases.dog_search.DogSearchUseCase
 import com.example.decoupled_android_search.core.use_cases.dog_search.SubBreed
 import com.example.decoupled_android_search.features.search.impl.dogs.filter.DogFilter
-import com.example.decoupled_android_search.features.search.impl.dogs.ui.view.DogSearchView
+import com.example.decoupled_android_search.features.search.impl.dogs.ui.search_results.view.DogSearchView
 import java.net.URL
 
 class DogSearchPresenterImpl(

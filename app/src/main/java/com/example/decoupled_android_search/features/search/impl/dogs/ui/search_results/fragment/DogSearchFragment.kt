@@ -1,10 +1,9 @@
-package com.example.decoupled_android_search.features.search.impl.dogs.ui.fragment
+package com.example.decoupled_android_search.features.search.impl.dogs.ui.search_results.fragment
 
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
@@ -13,9 +12,9 @@ import com.example.decoupled_android_search.concrete_infra.paginated_dog_reposit
 import com.example.decoupled_android_search.core.use_cases.dog_search.DogSearchInteractor
 import com.example.decoupled_android_search.features.search.contract.SearchContract
 import com.example.decoupled_android_search.features.search.impl.dogs.filter.DogFilter
-import com.example.decoupled_android_search.features.search.impl.dogs.ui.presenter.DogSearchPresenter
-import com.example.decoupled_android_search.features.search.impl.dogs.ui.presenter.DogSearchPresenterImpl
-import com.example.decoupled_android_search.features.search.impl.dogs.ui.view.DogSearchView
+import com.example.decoupled_android_search.features.search.impl.dogs.ui.search_results.presenter.DogSearchPresenter
+import com.example.decoupled_android_search.features.search.impl.dogs.ui.search_results.presenter.DogSearchPresenterImpl
+import com.example.decoupled_android_search.features.search.impl.dogs.ui.search_results.view.DogSearchView
 import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.dog_search_fragment.*
 

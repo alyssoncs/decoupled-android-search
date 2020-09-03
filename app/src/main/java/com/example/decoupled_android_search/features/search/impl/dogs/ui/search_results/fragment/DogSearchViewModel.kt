@@ -1,9 +1,9 @@
-package com.example.decoupled_android_search.features.search.impl.dogs.ui.fragment
+package com.example.decoupled_android_search.features.search.impl.dogs.ui.search_results.fragment
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.example.decoupled_android_search.features.search.impl.dogs.ui.view.DogSearchView
+import com.example.decoupled_android_search.features.search.impl.dogs.ui.search_results.view.DogSearchView
 import com.example.decoupled_android_search.libraries.mvvm_event.MvvmEvent
 import java.net.URL
 
