@@ -5,8 +5,8 @@ import com.example.decoupled_android_search.features.search.contract.SearchContr
 import com.example.decoupled_android_search.features.search.contract.SearchFactory
 import com.example.decoupled_android_search.features.search.contract.SearchFilterIntent
 import com.example.decoupled_android_search.features.search.impl.dogs.filter.DogFilter
-import com.example.decoupled_android_search.features.search.impl.dogs.filter.DogFilterActivity
-import com.example.decoupled_android_search.features.search.impl.dogs.ui.search_results.fragment.DogSearchFragment
+import com.example.decoupled_android_search.features.search.impl.dogs.ui.search_filter.view.activity.DogFilterActivity
+import com.example.decoupled_android_search.features.search.impl.dogs.ui.search_results.view.fragment.DogSearchFragment
 import kotlinx.android.parcel.Parcelize
 
 @Parcelize

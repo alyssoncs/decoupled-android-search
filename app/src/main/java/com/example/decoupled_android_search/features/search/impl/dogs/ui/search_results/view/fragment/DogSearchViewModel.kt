@@ -1,4 +1,4 @@
-package com.example.decoupled_android_search.features.search.impl.dogs.ui.search_results.fragment
+package com.example.decoupled_android_search.features.search.impl.dogs.ui.search_results.view.fragment
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData

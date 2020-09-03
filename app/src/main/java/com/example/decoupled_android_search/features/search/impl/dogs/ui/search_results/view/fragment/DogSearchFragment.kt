@@ -1,4 +1,4 @@
-package com.example.decoupled_android_search.features.search.impl.dogs.ui.search_results.fragment
+package com.example.decoupled_android_search.features.search.impl.dogs.ui.search_results.view.fragment
 
 import android.os.Bundle
 import android.view.LayoutInflater

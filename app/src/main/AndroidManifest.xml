@@ -14,7 +14,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".features.search.impl.dogs.filter.DogFilterActivity" />
+        <activity android:name=".features.search.impl.dogs.ui.search_filter.view.activity.DogFilterActivity" />
 
         <activity android:name=".features.search.impl.SearchActivity" />
 

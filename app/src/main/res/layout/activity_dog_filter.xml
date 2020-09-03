@@ -4,6 +4,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".features.search.impl.dogs.filter.DogFilterActivity">
+    tools:context=".features.search.impl.dogs.ui.search_filter.view.activity.DogFilterActivity">
 
 </androidx.constraintlayout.widget.ConstraintLayout>
