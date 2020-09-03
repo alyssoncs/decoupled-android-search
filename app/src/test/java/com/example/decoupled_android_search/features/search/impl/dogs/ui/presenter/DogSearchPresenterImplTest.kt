@@ -230,6 +230,30 @@ internal class DogSearchPresenterImplTest {
             .updateImageList(imageRepository[1])
     }
 
+    @Test
+    fun shouldChangeAppBarTitleToDogBreedOnStart() {
+        val filter = DogFilter("akita")
+        initPresenter(filter)
+
+        presenter.onStart()
+
+        then(view)
+            .should()
+            .changeAppBarTitle("akita")
+    }
+
+    @Test
+    fun shouldChangeAppBarTitleToDogBreedAndSubBreedOnStart() {
+        val filter = DogFilter(breed = "bulldog", subBreed = "french")
+        initPresenter(filter)
+
+        presenter.onStart()
+
+        then(view)
+            .should()
+            .changeAppBarTitle("french bulldog")
+    }
+
     private fun initPresenter(filter: DogFilter) {
         presenter = DogSearchPresenterImpl(useCase, filter).apply {
             setView(view)

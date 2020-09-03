@@ -4,7 +4,6 @@ import android.app.Activity
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.os.PersistableBundle
 import android.widget.Toast
 import com.example.decoupled_android_search.R
 import com.example.decoupled_android_search.features.search.contract.SearchContract
@@ -54,23 +53,23 @@ class SearchActivity : AppCompatActivity(), SearchContract.SearchableActivity {
         }
     }
 
-    override fun onSaveInstanceState(outState: Bundle, outPersistentState: PersistableBundle) {
+    override fun onSaveInstanceState(outState: Bundle) {
         outState.putParcelable(SEARCH_FACTORY_KEY, searchFactory)
         outState.putParcelable(SEARCH_FILTER_KEY, searchFilter)
 
-        super.onSaveInstanceState(outState, outPersistentState)
+        super.onSaveInstanceState(outState)
     }
 
     override fun showLoadingAnimation() {
-        swipeRefresh.isRefreshing = true;
+        swipeRefresh.isRefreshing = true
     }
 
     override fun hideLoadingAnimation() {
-        swipeRefresh.isRefreshing = false;
+        swipeRefresh.isRefreshing = false
     }
 
     override fun setAppBarTitle(title: String) {
-        topAppBar.title = title;
+        topAppBar.title = title
     }
 
     override fun notifyInvalidFilter() {
@@ -119,11 +118,12 @@ class SearchActivity : AppCompatActivity(), SearchContract.SearchableActivity {
     private fun retrieveParametersFromIntent(intent: Intent) {
         val factory = retrieveSearchFactoryFromIntentExtras(intent)
 
-        if (factory == null)
+        if (factory == null) {
             finish()
-
-        searchFactory = factory!!
-        searchFilter  = factory.createEmptySearchFilter()
+        } else {
+            searchFactory = factory
+            searchFilter  = factory.createEmptySearchFilter()
+        }
     }
 
     private fun retrieveSearchFilterFromSavedState(savedInstanceState: Bundle): SearchFilterIntent.SearchFilter? =

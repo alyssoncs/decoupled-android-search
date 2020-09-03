@@ -2,4 +2,7 @@
     <string name="app_name">Decoupled Android Search</string>
     <string name="invalid_search_filter">Invalid search filter</string>
     <string name="empty_search_filter">Empty search filter</string>
+    <string name="no_content">No dogs found</string>
+    <string name="item_dog_image_description">a image of a dog</string>
+    <string name="dog_search">Dog Search</string>
 </resources>

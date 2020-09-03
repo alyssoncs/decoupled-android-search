@@ -20,8 +20,8 @@ class SearchFilterIntent: Intent() {
 
 
         fun toBundle(): Bundle {
-            return Bundle().apply {
-                putParcelable(EXTRA_SEARCH_FILTER_KEY, this)
+            return Bundle().also {
+                it.putParcelable(EXTRA_SEARCH_FILTER_KEY, this)
             }
         }
     }

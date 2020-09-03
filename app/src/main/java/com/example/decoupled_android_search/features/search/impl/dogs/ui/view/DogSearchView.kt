@@ -8,4 +8,5 @@ interface DogSearchView {
     fun hideLoadingAnimation()
     fun notifyInvalidSearchFilter()
     fun displaySearchErrorMessage()
+    fun changeAppBarTitle(title: String)
 }

@@ -19,6 +19,10 @@ class DogSearchPresenterImpl(
     }
 
     override fun onStart() {
+        val title = getFormattedTitle()
+        view.changeAppBarTitle(title)
+
+
         wrapInsideLoadingAnimation {
             if (filter.isEmpty())
                 view.notifyInvalidSearchFilter()
@@ -31,6 +35,13 @@ class DogSearchPresenterImpl(
         wrapInsideLoadingAnimation {
             fetchAndDisplayNextPageOfImages()
         }
+    }
+
+    private fun getFormattedTitle(): String {
+        return if (filter.hasSubBreed())
+            "${filter.subBreed} ${filter.breed}"
+        else
+            filter.breed
     }
 
     private fun wrapInsideLoadingAnimation(doOperation: () -> Unit) {
