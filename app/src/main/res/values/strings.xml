@@ -5,4 +5,6 @@
     <string name="no_content">No dogs found</string>
     <string name="item_dog_image_description">a image of a dog</string>
     <string name="dog_search">Dog Search</string>
+    <string name="breed_hint">Breed</string>
+    <string name="sub_breed_hint">Sub breed</string>
 </resources>

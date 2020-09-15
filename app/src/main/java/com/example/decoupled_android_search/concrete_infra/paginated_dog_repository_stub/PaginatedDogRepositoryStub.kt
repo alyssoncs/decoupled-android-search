@@ -9,10 +9,16 @@ import java.net.URL
 
 class PaginatedDogRepositoryStub: PaginatedDogRepository {
     override fun getAllBreeds(): List<Breed> {
+        runBlocking {
+            delay(2000L)
+        }
         return breeds
     }
 
     override fun getSubBreeds(breed: Breed): List<SubBreed> {
+        runBlocking {
+            delay(2000L)
+        }
         return subBreeds[breed] ?: emptyList()
     }
 
