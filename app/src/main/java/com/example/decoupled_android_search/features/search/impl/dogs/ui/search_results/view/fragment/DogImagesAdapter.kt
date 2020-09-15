@@ -39,7 +39,7 @@ class DogImagesAdapter(
         val newListSize = newList.size
         if (newListSize > oldListSize) {
             val newItems = if (oldListSize != 0)
-                newList.subList(oldListSize - 1, newListSize)
+                newList.subList(oldListSize, newListSize)
             else
                 newList
 
