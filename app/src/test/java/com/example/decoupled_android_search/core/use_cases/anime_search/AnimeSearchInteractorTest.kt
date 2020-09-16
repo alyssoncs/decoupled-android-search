@@ -1,6 +1,6 @@
 package com.example.decoupled_android_search.core.use_cases.anime_search
 
-import com.example.decoupled_android_search.core.use_cases.anime_search.infra.AnimeRepository
+import com.example.decoupled_android_search.core.use_cases.anime_search.infra.PaginatedAnimeRepository
 import com.google.common.truth.Truth.assertThat
 import com.nhaarman.mockitokotlin2.given
 import org.junit.jupiter.api.BeforeEach
@@ -18,7 +18,7 @@ import java.util.stream.Stream
 @ExtendWith(MockitoExtension::class)
 class AnimeSearchInteractorTest {
     @Mock
-    lateinit var repository: AnimeRepository
+    lateinit var repository: PaginatedAnimeRepository
 
     lateinit var useCase: AnimeSearchUseCase
 
