@@ -35,7 +35,6 @@ data class AnimeFilter(
     interface Genre {
         val name: String
     }
-
 }
 
 
