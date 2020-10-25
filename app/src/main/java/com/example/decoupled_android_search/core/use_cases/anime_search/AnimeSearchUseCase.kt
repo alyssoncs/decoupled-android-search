@@ -3,9 +3,12 @@ package com.example.decoupled_android_search.core.use_cases.anime_search
 import java.net.URL
 
 interface AnimeSearchUseCase {
-    fun getRates(): List<AnimeFilter.Rate>
-    fun getGenres(): List<AnimeFilter.Genre>
-    fun get(filter: AnimeFilter, page: Int): List<Anime>
+    fun getStatus(): List<AnimeQuery.Status> = AnimeQuery.Status.values().asList()
+    fun getRatings(): List<AnimeQuery.Rating>
+    fun getGenres(): List<AnimeQuery.Genre>
+    fun get(query: AnimeQuery, page: Int): List<Anime>
+
+    class SearchException: Throwable()
 }
 
 data class Anime(
@@ -16,10 +19,10 @@ data class Anime(
     val score: Double
 )
 
-data class AnimeFilter(
+data class AnimeQuery(
     val name: String,
     val status: Status? = null,
-    val rated: Rate? = null,
+    val rated: Rating? = null,
     val genre: Genre? = null,
 ) {
     enum class Status {
@@ -28,13 +31,15 @@ data class AnimeFilter(
         TO_BE_AIRED
     }
 
-    interface Rate {
-        val name: String
-    }
+    data class Rating(
+        val name: String,
+        val id: String
+    )
 
-    interface Genre {
-        val name: String
-    }
+    data class Genre(
+        val name: String,
+        val id: String
+    )
 }
 
 

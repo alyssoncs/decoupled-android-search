@@ -1,15 +1,14 @@
 package com.example.decoupled_android_search.features.search.impl.dogs.ui.search_filter.view.activity
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import android.widget.ArrayAdapter
+import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import com.example.decoupled_android_search.R
 import com.example.decoupled_android_search.concrete_infra.paginated_dog_repository_stub.PaginatedDogRepositoryStub
 import com.example.decoupled_android_search.core.use_cases.dog_search.DogSearchInteractor
 import com.example.decoupled_android_search.features.search.contract.SearchFilterIntent
-import com.example.decoupled_android_search.features.search.impl.dogs.filter.DogFilter
 import com.example.decoupled_android_search.features.search.impl.dogs.ui.search_filter.presenter.DogFilterPresenter
 import com.example.decoupled_android_search.features.search.impl.dogs.ui.search_filter.presenter.DogFilterPresenterImpl
 import com.example.decoupled_android_search.features.search.impl.dogs.ui.search_filter.view.DogFilterView

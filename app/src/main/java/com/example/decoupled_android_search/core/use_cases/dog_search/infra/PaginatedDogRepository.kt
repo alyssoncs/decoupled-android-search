@@ -10,5 +10,5 @@ interface PaginatedDogRepository {
     fun getBreedImagesByPage(breed: Breed, page: Int): List<URL>
     fun getSubBreedImagesByPage(subBreed: SubBreed, page: Int): List<URL>
 
-    class SearchException(): Throwable()
+    class SearchException: Throwable()
 }

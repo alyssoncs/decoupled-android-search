@@ -1,56 +1,48 @@
 package com.example.decoupled_android_search.concrete_infra.paginated_anime_repository_stub
 
 import com.example.decoupled_android_search.core.use_cases.anime_search.Anime
-import com.example.decoupled_android_search.core.use_cases.anime_search.AnimeFilter
+import com.example.decoupled_android_search.core.use_cases.anime_search.AnimeQuery
 import com.example.decoupled_android_search.core.use_cases.anime_search.infra.PaginatedAnimeRepository
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.runBlocking
 import java.net.URL
 
 class PaginatedAnimeRepositoryStub: PaginatedAnimeRepository {
-    override fun getRatings(): List<AnimeFilter.Rate> {
+    override fun getRatings(): List<AnimeQuery.Rating> {
         runBlocking {
             delay(2000L)
         }
 
-        data class Rate(
-            override val name: String
-        ): AnimeFilter.Rate
-
         return listOf(
-            Rate("all ages"),
-            Rate("children"),
-            Rate("13+"),
-            Rate("17+"),
-            Rate("mild nudity"),
-            Rate("hentai"),
+            AnimeQuery.Rating("all ages", "all"),
+            AnimeQuery.Rating("children", "children"),
+            AnimeQuery.Rating("13+", "13"),
+            AnimeQuery.Rating("17+", "17"),
+            AnimeQuery.Rating("mild nudity", "mild_n"),
+            AnimeQuery.Rating("hentai", "hen"),
         )
     }
 
-    override fun getGenres(): List<AnimeFilter.Genre> {
+    override fun getGenres(): List<AnimeQuery.Genre> {
         runBlocking {
             delay(2000L)
         }
 
-        data class Genre(
-            override val name: String
-        ): AnimeFilter.Genre
-
         return listOf(
-            Genre("action"),
-            Genre("adventure"),
-            Genre("cars"),
-            Genre("comedy"),
-            Genre("dementia"),
-            Genre("demons"),
-            Genre("mystery"),
-            Genre("drama"),
-            Genre("ecchi"),
-            Genre("fantasy"),
+            AnimeQuery.Genre("action", ""),
+            AnimeQuery.Genre("adventure", ""),
+            AnimeQuery.Genre("cars", ""),
+            AnimeQuery.Genre("comedy", ""),
+            AnimeQuery.Genre("dementia", ""),
+            AnimeQuery.Genre("demons", ""),
+            AnimeQuery.Genre("mystery", ""),
+            AnimeQuery.Genre("drama", ""),
+            AnimeQuery.Genre("ecchi", ""),
+            AnimeQuery.Genre("fantasy", ""),
         )
     }
 
-    override fun getAnimes(filter: AnimeFilter, page: Int): List<Anime> {
+    override fun getAnimes(query: AnimeQuery, page: Int): List<Anime> {
         runBlocking {
             delay(2000L)
         }

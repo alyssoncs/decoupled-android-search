@@ -6,15 +6,27 @@ class AnimeSearchInteractor(
     private val repository: PaginatedAnimeRepository
 ) : AnimeSearchUseCase {
 
-    override fun getRates(): List<AnimeFilter.Rate> {
-        return repository.getRatings()
+    override fun getRatings(): List<AnimeQuery.Rating> {
+        return try {
+            repository.getRatings()
+        } catch (e: PaginatedAnimeRepository.SearchException) {
+            throw AnimeSearchUseCase.SearchException()
+        }
     }
 
-    override fun getGenres(): List<AnimeFilter.Genre> {
-        return repository.getGenres()
+    override fun getGenres(): List<AnimeQuery.Genre> {
+        return try {
+            repository.getGenres()
+        } catch (e: PaginatedAnimeRepository.SearchException) {
+            throw AnimeSearchUseCase.SearchException()
+        }
     }
 
-    override fun get(filter: AnimeFilter, page: Int): List<Anime> {
-        return repository.getAnimes(filter, page)
+    override fun get(query: AnimeQuery, page: Int): List<Anime> {
+        return try {
+            repository.getAnimes(query, page)
+        } catch (e: PaginatedAnimeRepository.SearchException) {
+            throw AnimeSearchUseCase.SearchException()
+        }
     }
 }

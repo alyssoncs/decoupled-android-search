@@ -7,4 +7,9 @@
     <string name="dog_search">Dog Search</string>
     <string name="breed_hint">Breed</string>
     <string name="sub_breed_hint">Sub breed</string>
+    <string name="anime_search">Anime search</string>
+    <string name="anime_status_hint">Status</string>
+    <string name="anime_rate_hint">Rate</string>
+    <string name="anime_genre_hint">Genre</string>
+    <string name="anime_name_hint">Name</string>
 </resources>
