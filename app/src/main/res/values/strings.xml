@@ -12,4 +12,6 @@
     <string name="anime_rate_hint">Rate</string>
     <string name="anime_genre_hint">Genre</string>
     <string name="anime_name_hint">Name</string>
+    <string name="anime_rating_search_error">It was not possible to fetch the available anime ratings</string>
+    <string name="anime_genres_search_error">It was not possible to fetch the available anime genres</string>
 </resources>
