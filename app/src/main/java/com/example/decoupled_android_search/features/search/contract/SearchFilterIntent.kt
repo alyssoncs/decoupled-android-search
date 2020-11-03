@@ -18,7 +18,6 @@ class SearchFilterIntent: Intent() {
 
         abstract fun isEmpty(): Boolean
 
-
         fun toBundle(): Bundle {
             return Bundle().also {
                 it.putParcelable(EXTRA_SEARCH_FILTER_KEY, this)

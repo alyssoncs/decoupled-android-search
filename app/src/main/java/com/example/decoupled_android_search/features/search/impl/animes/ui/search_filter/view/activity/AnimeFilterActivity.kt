@@ -11,6 +11,7 @@ import com.example.decoupled_android_search.R
 import com.example.decoupled_android_search.concrete_infra.paginated_anime_repository_stub.PaginatedAnimeRepositoryStub
 import com.example.decoupled_android_search.core.use_cases.anime_search.AnimeSearchInteractor
 import com.example.decoupled_android_search.features.search.contract.SearchFilterIntent
+import com.example.decoupled_android_search.features.search.impl.animes.filter.AnimeFilter
 import com.example.decoupled_android_search.features.search.impl.animes.ui.search_filter.presenter.AnimeFilterPresenter
 import com.example.decoupled_android_search.features.search.impl.animes.ui.search_filter.presenter.AnimeFilterPresenterImpl
 import com.example.decoupled_android_search.features.search.impl.animes.ui.search_filter.view.AnimeFilterView
@@ -31,6 +32,8 @@ class AnimeFilterActivity : AppCompatActivity() {
     private lateinit var viewModel: AnimeFilterViewModel
     private lateinit var presenter: AnimeFilterPresenter
 
+    private lateinit var searchFilter: AnimeFilter
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_anime_filter)
@@ -40,14 +43,14 @@ class AnimeFilterActivity : AppCompatActivity() {
         observeViewModel()
 
         if (savedInstanceState == null)
-            presenter.onStart()
+            presenter.onStart(searchFilter)
     }
 
     private fun setUp() {
+        searchFilter = getSearchFilterFromIntent()
         viewModel = getViewModel()
         presenter = getPresenter(viewModel)
     }
-
 
     private fun prepareListeners() {
         prepareAnimeNameListener()
@@ -66,6 +69,17 @@ class AnimeFilterActivity : AppCompatActivity() {
         observeRatingIndexToSelect()
         observeGenreIndexToSelect()
         observeAnimeFilterToReturn()
+    }
+
+    private fun getSearchFilterFromIntent(): AnimeFilter {
+        val filter: SearchFilterIntent.SearchFilter? = intent.extras?.let {
+            SearchFilterIntent.SearchFilter.getFilterFrom(it)
+        }
+
+        return if (filter != null)
+            filter as AnimeFilter
+        else
+            AnimeFilter.createEmpty()
     }
 
     private fun getViewModel() = ViewModelProvider(this).get(AnimeFilterViewModel::class.java)
