@@ -5,7 +5,6 @@ import android.text.Editable
 import android.text.TextWatcher
 import android.view.View
 import android.widget.ArrayAdapter
-import androidx.annotation.StringRes
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import com.example.decoupled_android_search.R
@@ -15,7 +14,6 @@ import com.example.decoupled_android_search.features.search.contract.SearchFilte
 import com.example.decoupled_android_search.features.search.impl.animes.ui.search_filter.presenter.AnimeFilterPresenter
 import com.example.decoupled_android_search.features.search.impl.animes.ui.search_filter.presenter.AnimeFilterPresenterImpl
 import com.example.decoupled_android_search.features.search.impl.animes.ui.search_filter.view.AnimeFilterView
-import com.google.android.material.snackbar.Snackbar
 import com.tiper.MaterialSpinner
 import kotlinx.android.synthetic.main.activity_anime_filter.animeGenreSpinner
 import kotlinx.android.synthetic.main.activity_anime_filter.animeNameInput
@@ -23,7 +21,6 @@ import kotlinx.android.synthetic.main.activity_anime_filter.animeRatingSpinner
 import kotlinx.android.synthetic.main.activity_anime_filter.animeStatusSpinner
 import kotlinx.android.synthetic.main.activity_anime_filter.confirmButton
 import kotlinx.android.synthetic.main.activity_anime_filter.loadingWidget
-import kotlinx.android.synthetic.main.activity_anime_filter.rootContainer
 
 fun View.setVisible(visible: Boolean) {
     this.visibility = if (visible) View.VISIBLE else View.INVISIBLE
@@ -149,7 +146,7 @@ class AnimeFilterActivity : AppCompatActivity() {
     private fun observeRatingSearchError() {
         viewModel.ratingsSearchHasFailed.observe(this) { itFailed ->
             if (itFailed)
-                displayError(R.string.anime_rating_search_error)
+                animeRatingSpinner.error = getString(R.string.anime_rating_search_error)
         }
     }
 
@@ -174,7 +171,7 @@ class AnimeFilterActivity : AppCompatActivity() {
     private fun observeGenresSearchError() {
         viewModel.genresSearchHasFailed.observe(this) { itFailed ->
             if (itFailed)
-                displayError(R.string.anime_genres_search_error)
+                animeGenreSpinner.error = getString(R.string.anime_genres_search_error)
         }
     }
 
@@ -230,13 +227,5 @@ class AnimeFilterActivity : AppCompatActivity() {
                 onItemSelectedListener = listener
             }
         }
-    }
-
-    private fun displayError(@StringRes errorMessageResId: Int) {
-        Snackbar.make(
-            rootContainer,
-            errorMessageResId,
-            Snackbar.LENGTH_LONG
-        ).show()
     }
 }
