@@ -165,8 +165,8 @@ class AnimeFilterActivity : AppCompatActivity() {
     }
 
     private fun observeGenres() {
-        viewModel.genres.observe(this) { ratings ->
-            configureSpinner(animeRatingSpinner, ratings, genresSpinnerListener)
+        viewModel.genres.observe(this) { genres ->
+            configureSpinner(animeGenreSpinner, genres, genresSpinnerListener)
         }
     }
 

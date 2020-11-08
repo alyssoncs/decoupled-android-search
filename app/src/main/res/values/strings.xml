@@ -9,7 +9,7 @@
     <string name="sub_breed_hint">Sub breed</string>
     <string name="anime_search">Anime search</string>
     <string name="anime_status_hint">Status</string>
-    <string name="anime_rate_hint">Rate</string>
+    <string name="anime_rating_hint">Rating</string>
     <string name="anime_genre_hint">Genre</string>
     <string name="anime_name_hint">Name</string>
     <string name="anime_rating_search_error">It was not possible to fetch the available anime ratings</string>
