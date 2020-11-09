@@ -20,13 +20,26 @@ data class AnimeFilter(
         return name.isEmpty()
     }
 
+    fun toQuery(): AnimeQuery = AnimeQuery(
+        name = name,
+        status = status,
+        rated = rating?.toQueryRating(),
+        genre = genre?.toQueryGenre(),
+    )
+
     @Parcelize
     data class Rating(val rating: String, val ratingId: String) : Parcelable {
+
         constructor(rating: AnimeQuery.Rating): this(rating.name, rating.id)
+
+        fun toQueryRating() = AnimeQuery.Rating(rating, ratingId)
     }
 
     @Parcelize
     data class Genre(val genre: String, val genreId: String) : Parcelable {
+
         constructor(genre: AnimeQuery.Genre): this(genre.name, genre.id)
+
+        fun toQueryGenre() = AnimeQuery.Genre(genre, genreId)
     }
 }
