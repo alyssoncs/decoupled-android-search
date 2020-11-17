@@ -8,5 +8,6 @@ interface AnimeSearchView {
     fun showLoadingAnimation()
     fun hideLoadingAnimation()
     fun updateAnimeList(list: List<Anime>)
+    fun displaySearchErrorMessage()
 }
 
