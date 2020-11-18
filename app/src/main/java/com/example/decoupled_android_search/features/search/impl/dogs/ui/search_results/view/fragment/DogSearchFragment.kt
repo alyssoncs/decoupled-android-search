@@ -16,7 +16,8 @@ import com.example.decoupled_android_search.features.search.impl.dogs.ui.search_
 import com.example.decoupled_android_search.features.search.impl.dogs.ui.search_results.presenter.DogSearchPresenterImpl
 import com.example.decoupled_android_search.features.search.impl.dogs.ui.search_results.view.DogSearchView
 import com.google.android.material.snackbar.Snackbar
-import kotlinx.android.synthetic.main.dog_search_fragment.*
+import kotlinx.android.synthetic.main.fragment_dog_search.dogImageList
+import kotlinx.android.synthetic.main.fragment_dog_search.rootContainer
 
 class DogSearchFragment: SearchContract.SearchableFragment<DogFilter>() {
 
@@ -31,7 +32,7 @@ class DogSearchFragment: SearchContract.SearchableFragment<DogFilter>() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.dog_search_fragment, container, false)
+        return inflater.inflate(R.layout.fragment_dog_search, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
