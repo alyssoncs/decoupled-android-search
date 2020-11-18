@@ -6,7 +6,7 @@ import com.example.decoupled_android_search.features.search.contract.SearchFacto
 import com.example.decoupled_android_search.features.search.impl.SearchActivity
 
 object Navigation {
-    fun getSearchDogsIntent(context: Context, factory: SearchFactory): Intent {
+    fun getSearchIntent(context: Context, factory: SearchFactory): Intent {
         return Intent(context, SearchActivity::class.java)
             .putExtra(
                 SearchActivity.EXTRA_KEY,

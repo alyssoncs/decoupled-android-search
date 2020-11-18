@@ -14,8 +14,11 @@ import com.example.decoupled_android_search.features.search.impl.dogs.ui.search_
 import com.example.decoupled_android_search.features.search.impl.dogs.ui.search_filter.view.DogFilterView
 import com.google.android.material.snackbar.Snackbar
 import com.tiper.MaterialSpinner
-import kotlinx.android.synthetic.main.activity_dog_filter.*
-import kotlinx.android.synthetic.main.dog_search_fragment.*
+import kotlinx.android.synthetic.main.activity_dog_filter.breedSpinner
+import kotlinx.android.synthetic.main.activity_dog_filter.confirmButton
+import kotlinx.android.synthetic.main.activity_dog_filter.loadingWidget
+import kotlinx.android.synthetic.main.activity_dog_filter.rootContainer
+import kotlinx.android.synthetic.main.activity_dog_filter.subBreedSpinner
 
 class DogFilterActivity : AppCompatActivity() {
     private lateinit var viewModel: DogFilterViewModel

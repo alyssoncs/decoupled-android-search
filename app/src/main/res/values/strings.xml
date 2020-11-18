@@ -14,4 +14,8 @@
     <string name="anime_name_hint">Name</string>
     <string name="anime_rating_search_error">It was not possible to fetch the available anime ratings</string>
     <string name="anime_genres_search_error">It was not possible to fetch the available anime genres</string>
+    <string name="anime_episodes_label">Episodes:</string>
+    <string name="anime_score_label">Score:</string>
+    <string name="anime_score_upper_bound_separator">/</string>
+    <string name="anime_score_upper_bound">10.0</string>
 </resources>

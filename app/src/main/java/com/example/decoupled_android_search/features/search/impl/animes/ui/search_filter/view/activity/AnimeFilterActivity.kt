@@ -229,6 +229,7 @@ class AnimeFilterActivity : AppCompatActivity() {
                 }
 
                 setResult(RESULT_OK, intent)
+                finish()
             }
         }
     }

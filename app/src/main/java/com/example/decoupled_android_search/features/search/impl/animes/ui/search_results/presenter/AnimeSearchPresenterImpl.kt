@@ -34,7 +34,9 @@ class AnimeSearchPresenterImpl(
 
     override fun onReachEndOfScroll() {
         if (!filter.isEmpty() && nextPageToFetch > 0) {
-            fetchNextPageAndUpdateList()
+            wrapInsideLoadingAnimation {
+                fetchNextPageAndUpdateList()
+            }
         }
     }
 

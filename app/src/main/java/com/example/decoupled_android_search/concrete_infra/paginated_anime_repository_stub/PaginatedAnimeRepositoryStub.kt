@@ -62,6 +62,76 @@ class PaginatedAnimeRepositoryStub: PaginatedAnimeRepository {
                 episodes = 225,
                 score = 9.2
             ),
+            Anime(
+                name = "pokemon",
+                imageUrl = URL("https://img.olhardigital.com.br/uploads/acervo_imagens/2019/05/r16x9/20190507084117_1200_675_-_pokemon.jpg"),
+                synopsis = "catch pokemon",
+                episodes = 150,
+                score = 7.5
+            ),
+            Anime(
+                name = "naruto",
+                imageUrl = URL("https://vignette.wikia.nocookie.net/naruto/images/3/33/Naruto_Uzumaki_%28Parte_I_-_HD%29.png/revision/latest?cb=20160316113315&path-prefix=pt-br"),
+                synopsis = "become a hokage",
+                episodes = 225,
+                score = 9.2
+            ),
+            Anime(
+                name = "pokemon",
+                imageUrl = URL("https://img.olhardigital.com.br/uploads/acervo_imagens/2019/05/r16x9/20190507084117_1200_675_-_pokemon.jpg"),
+                synopsis = "catch pokemon",
+                episodes = 150,
+                score = 7.5
+            ),
+            Anime(
+                name = "naruto",
+                imageUrl = URL("https://vignette.wikia.nocookie.net/naruto/images/3/33/Naruto_Uzumaki_%28Parte_I_-_HD%29.png/revision/latest?cb=20160316113315&path-prefix=pt-br"),
+                synopsis = "become a hokage",
+                episodes = 225,
+                score = 9.2
+            ),
+            Anime(
+                name = "pokemon",
+                imageUrl = URL("https://img.olhardigital.com.br/uploads/acervo_imagens/2019/05/r16x9/20190507084117_1200_675_-_pokemon.jpg"),
+                synopsis = "catch pokemon",
+                episodes = 150,
+                score = 7.5
+            ),
+            Anime(
+                name = "naruto",
+                imageUrl = URL("https://vignette.wikia.nocookie.net/naruto/images/3/33/Naruto_Uzumaki_%28Parte_I_-_HD%29.png/revision/latest?cb=20160316113315&path-prefix=pt-br"),
+                synopsis = "become a hokage",
+                episodes = 225,
+                score = 9.2
+            ),
+            Anime(
+                name = "pokemon",
+                imageUrl = URL("https://img.olhardigital.com.br/uploads/acervo_imagens/2019/05/r16x9/20190507084117_1200_675_-_pokemon.jpg"),
+                synopsis = "catch pokemon",
+                episodes = 150,
+                score = 7.5
+            ),
+            Anime(
+                name = "naruto",
+                imageUrl = URL("https://vignette.wikia.nocookie.net/naruto/images/3/33/Naruto_Uzumaki_%28Parte_I_-_HD%29.png/revision/latest?cb=20160316113315&path-prefix=pt-br"),
+                synopsis = "become a hokage",
+                episodes = 225,
+                score = 9.2
+            ),
+            Anime(
+                name = "pokemon",
+                imageUrl = URL("https://img.olhardigital.com.br/uploads/acervo_imagens/2019/05/r16x9/20190507084117_1200_675_-_pokemon.jpg"),
+                synopsis = "catch pokemon",
+                episodes = 150,
+                score = 7.5
+            ),
+            Anime(
+                name = "naruto",
+                imageUrl = URL("https://vignette.wikia.nocookie.net/naruto/images/3/33/Naruto_Uzumaki_%28Parte_I_-_HD%29.png/revision/latest?cb=20160316113315&path-prefix=pt-br"),
+                synopsis = "become a hokage",
+                episodes = 225,
+                score = 9.2
+            ),
         )
     }
 }

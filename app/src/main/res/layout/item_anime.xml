@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.card.MaterialCardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="4dp"
+    app:cardElevation="8dp"
+    >
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_margin="4dp">
+
+        <com.mikhaellopez.circularimageview.CircularImageView
+            android:id="@+id/animeImage"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/animeName"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="8dp"
+            android:textSize="18sp"
+            android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toEndOf="@id/animeImage"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="Death Note" />
+
+        <TextView
+            android:id="@+id/animeEpisodesLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:layout_marginEnd="8dp"
+            android:text="@string/anime_episodes_label"
+            android:textAppearance="@style/TextAppearance.MaterialComponents.Body2"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="@id/animeName"
+            app:layout_constraintTop_toBottomOf="@id/animeName" />
+
+        <TextView
+            android:id="@+id/animeEpisodes"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="4dp"
+            android:layout_marginTop="4dp"
+            app:layout_constraintStart_toEndOf="@id/animeEpisodesLabel"
+            app:layout_constraintTop_toBottomOf="@id/animeName"
+            tools:text="250" />
+
+        <TextView
+            android:id="@+id/animeScoreLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="32dp"
+            android:layout_marginTop="4dp"
+            android:textAppearance="@style/TextAppearance.MaterialComponents.Body2"
+            android:textStyle="bold"
+            android:text="@string/anime_score_label"
+            app:layout_constraintStart_toEndOf="@+id/animeEpisodes"
+            app:layout_constraintTop_toBottomOf="@+id/animeName" />
+
+        <TextView
+            android:id="@+id/animeScore"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="4dp"
+            android:layout_marginTop="4dp"
+            app:layout_constraintStart_toEndOf="@+id/animeScoreLabel"
+            app:layout_constraintTop_toBottomOf="@+id/animeName"
+            tools:text="8.5" />
+
+        <TextView
+            android:id="@+id/score_upperBound_separator"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:layout_marginStart="2dp"
+            android:text="@string/anime_score_upper_bound_separator"
+            app:layout_constraintStart_toEndOf="@+id/animeScore"
+            app:layout_constraintTop_toBottomOf="@+id/animeName" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:layout_marginStart="2dp"
+            android:text="@string/anime_score_upper_bound"
+            app:layout_constraintStart_toEndOf="@+id/score_upperBound_separator"
+            app:layout_constraintTop_toBottomOf="@+id/animeName" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</com.google.android.material.card.MaterialCardView>

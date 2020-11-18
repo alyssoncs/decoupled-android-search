@@ -5,7 +5,8 @@ import com.example.decoupled_android_search.features.search.contract.SearchContr
 import com.example.decoupled_android_search.features.search.contract.SearchFactory
 import com.example.decoupled_android_search.features.search.contract.SearchFilterIntent
 import com.example.decoupled_android_search.features.search.impl.animes.filter.AnimeFilter
-import com.example.decoupled_android_search.features.search.impl.dogs.ui.search_filter.view.activity.DogFilterActivity
+import com.example.decoupled_android_search.features.search.impl.animes.ui.search_filter.view.activity.AnimeFilterActivity
+import com.example.decoupled_android_search.features.search.impl.animes.ui.search_results.view.fragment.AnimeSearchFragment
 import kotlinx.android.parcel.Parcelize
 
 @Parcelize
@@ -19,12 +20,12 @@ class AnimeSearchFactory: SearchFactory {
         currentFilter: SearchFilterIntent.SearchFilter
     ): SearchFilterIntent {
         return SearchFilterIntent().apply {
-            setClass(context, DogFilterActivity::class.java)
+            setClass(context, AnimeFilterActivity::class.java)
             putExtras(currentFilter.toBundle())
         }
     }
 
     override fun createSearchableFragment(filter: SearchFilterIntent.SearchFilter): SearchContract.SearchableFragment<SearchFilterIntent.SearchFilter> {
-        TODO("Not yet implemented")
+        return AnimeSearchFragment().newInstance(filter)
     }
 }
