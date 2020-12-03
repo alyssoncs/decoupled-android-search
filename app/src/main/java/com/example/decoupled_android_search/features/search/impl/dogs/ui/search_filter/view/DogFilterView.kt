@@ -6,9 +6,12 @@ interface DogFilterView {
     fun showLoadingAnimation()
     fun hideLoadingAnimation()
     fun setBreedSelectionOptions(breeds: List<String>)
+    fun selectBreed(index: Int)
     fun notifyBreedSearchError()
     fun setSubBreedSelectionOptions(subBreeds: List<String>)
+    fun selectSubBreed(index: Int)
     fun notifySubBreedSearchError()
     fun clearSubBreedOptions()
     fun returnSearchFilter(dogFilter: DogFilter)
+    fun unselectSubBreed()
 }

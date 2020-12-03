@@ -4,7 +4,7 @@ import com.example.decoupled_android_search.features.search.contract.SearchFilte
 import kotlinx.android.parcel.Parcelize
 
 @Parcelize
-class DogFilter(
+data class DogFilter(
     var breed: String = "",
     var subBreed: String = ""
 ) : SearchFilterIntent.SearchFilter() {

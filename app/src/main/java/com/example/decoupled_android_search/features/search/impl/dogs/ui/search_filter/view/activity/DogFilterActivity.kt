@@ -9,6 +9,7 @@ import com.example.decoupled_android_search.R
 import com.example.decoupled_android_search.concrete_infra.paginated_dog_repository_stub.PaginatedDogRepositoryStub
 import com.example.decoupled_android_search.core.use_cases.dog_search.DogSearchInteractor
 import com.example.decoupled_android_search.features.search.contract.SearchFilterIntent
+import com.example.decoupled_android_search.features.search.impl.dogs.filter.DogFilter
 import com.example.decoupled_android_search.features.search.impl.dogs.ui.search_filter.presenter.DogFilterPresenter
 import com.example.decoupled_android_search.features.search.impl.dogs.ui.search_filter.presenter.DogFilterPresenterImpl
 import com.example.decoupled_android_search.features.search.impl.dogs.ui.search_filter.view.DogFilterView
@@ -23,14 +24,13 @@ import kotlinx.android.synthetic.main.activity_dog_filter.subBreedSpinner
 class DogFilterActivity : AppCompatActivity() {
     private lateinit var viewModel: DogFilterViewModel
     private lateinit var presenter: DogFilterPresenter
+    private lateinit var searchFilter: DogFilter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_dog_filter)
 
-        viewModel = getViewModel()
-        presenter = getPresenter(viewModel)
-
+        setUp()
         subscribeUi()
 
         if (savedInstanceState == null)
@@ -39,6 +39,23 @@ class DogFilterActivity : AppCompatActivity() {
         confirmButton.setOnClickListener {
             presenter.onSubmitButtonClick()
         }
+    }
+
+    private fun setUp() {
+        searchFilter = getSearchFilterFromIntent()
+        viewModel = getViewModel()
+        presenter = getPresenter(viewModel)
+    }
+
+    private fun getSearchFilterFromIntent(): DogFilter {
+        val filter: SearchFilterIntent.SearchFilter? = intent.extras?.let {
+            SearchFilterIntent.SearchFilter.getFilterFrom(it)
+        }
+
+        return if (filter != null)
+            filter as DogFilter
+        else
+            DogFilter.createEmpty()
     }
 
     private fun getViewModel() = ViewModelProvider(this).get(DogFilterViewModel::class.java)
@@ -52,6 +69,7 @@ class DogFilterActivity : AppCompatActivity() {
         return ViewModelProvider(this, viewModelFactory)
             .get(DogFilterPresenterDispatcher::class.java).apply {
                 setView(view)
+                setFilter(searchFilter)
             }
     }
 
@@ -62,6 +80,8 @@ class DogFilterActivity : AppCompatActivity() {
         subscribeSubBreedList()
         subscribeSubBreedSearchErrorMessage()
         subscribeReturnSelection()
+        subscribeBreedIndexToSelect()
+        subscribeSubBreedIndexToSelect()
     }
 
     private fun subscribeLoadingAnimation() {
@@ -154,7 +174,7 @@ class DogFilterActivity : AppCompatActivity() {
     }
 
     private fun subscribeReturnSelection() {
-        viewModel.returnSelection.observe(this) {returnEvent ->
+        viewModel.returnSelection.observe(this) { returnEvent ->
             val event = returnEvent.getContentIfNotHandled()
             if (event?.shouldReturn == true) {
                 val intent = SearchFilterIntent().apply {
@@ -164,6 +184,22 @@ class DogFilterActivity : AppCompatActivity() {
 
                 setResult(RESULT_OK, intent)
                 finish()
+            }
+        }
+    }
+
+    private fun subscribeBreedIndexToSelect() {
+        viewModel.breedIndexToSelect.observe(this) { indexEvent ->
+            indexEvent.getContentIfNotHandled()?.let {
+                breedSpinner.selection = it
+            }
+        }
+    }
+
+    private fun subscribeSubBreedIndexToSelect() {
+        viewModel.subBreedIndexToSelect.observe(this) { indexEvent ->
+            indexEvent.getContentIfNotHandled()?.let {
+                subBreedSpinner.selection = if (it >= 0) it else MaterialSpinner.INVALID_POSITION
             }
         }
     }

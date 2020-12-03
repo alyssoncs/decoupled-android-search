@@ -5,7 +5,13 @@ import com.example.decoupled_android_search.core.use_cases.dog_search.DogSearchU
 import com.example.decoupled_android_search.core.use_cases.dog_search.SubBreed
 import com.example.decoupled_android_search.features.search.impl.dogs.filter.DogFilter
 import com.example.decoupled_android_search.features.search.impl.dogs.ui.search_filter.view.DogFilterView
-import com.nhaarman.mockitokotlin2.*
+import com.nhaarman.mockitokotlin2.any
+import com.nhaarman.mockitokotlin2.argThat
+import com.nhaarman.mockitokotlin2.given
+import com.nhaarman.mockitokotlin2.inOrder
+import com.nhaarman.mockitokotlin2.never
+import com.nhaarman.mockitokotlin2.reset
+import com.nhaarman.mockitokotlin2.then
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
@@ -32,6 +38,95 @@ class DogFilterPresenterImplTest {
     fun setUp() {
         presenter = DogFilterPresenterImpl(useCase)
         presenter.setView(view)
+    }
+
+    @ParameterizedTest
+    @ArgumentsSource(RecoverCurrentFilterWithBreedProvider::class)
+    fun shouldSelectBreedFromCurrentFilterWhenStarting(
+        currentFilter: DogFilter,
+        availableBreeds: List<Breed>,
+        expectedBreedIndex: Int
+    ) {
+        presenter.setFilter(currentFilter)
+        given(useCase.getBreeds())
+            .willReturn(availableBreeds)
+
+        presenter.onStart()
+
+        then(view)
+            .should()
+            .selectBreed(expectedBreedIndex)
+    }
+
+    @Test
+    fun shouldSelectNoBreedFromCurrentFilterWhenNotPresentOnUseCaseResponse() {
+        presenter.setFilter(DogFilter("akita"))
+        given(useCase.getBreeds())
+            .willReturn(listOf(Breed("bulldog")))
+
+        presenter.onStart()
+
+        then(view)
+            .should(never())
+            .selectBreed(any())
+    }
+
+    @ParameterizedTest
+    @ArgumentsSource(RecoverCurrentFilterWithSubBreedProvider::class)
+    fun shouldSelectSubBreedFromCurrentFilterWhenStarting(
+        currentFilter: DogFilter,
+        availableSubBreeds: List<SubBreed>,
+        expectedSubBreedIndex: Int
+    ) {
+        presenter.setFilter(currentFilter)
+        given(useCase.getBreeds())
+            .willReturn(listOf(Breed(availableSubBreeds[0].breed.name)))
+        given(useCase.getSubBreeds(any()))
+            .willReturn(availableSubBreeds)
+
+        presenter.onStart()
+
+        then(view)
+            .should()
+            .selectSubBreed(expectedSubBreedIndex)
+    }
+
+    @Test
+    fun shouldSelectNoSubBreedFromCurrentFilterWhenNotPresentOnUseCaseResponse() {
+        val breed = Breed("akita")
+        val subBreedPresentOnFilter = SubBreed(breed, "inu")
+        val subBreedAvailableToSelect = listOf(SubBreed(breed, "american"))
+
+        presenter.setFilter(DogFilter(subBreedPresentOnFilter.breed.name, subBreedPresentOnFilter.name))
+        given(useCase.getBreeds())
+            .willReturn(listOf(breed))
+        given(useCase.getSubBreeds(breed))
+            .willReturn(subBreedAvailableToSelect)
+
+        presenter.onStart()
+
+        then(view)
+            .should(never())
+            .selectSubBreed(any())
+    }
+
+    @Test
+    fun shouldUnselectSubBreedWhenCurrentSubBreedIsNotAvailableOnSelectedBreed() {
+        val breed = Breed("akita")
+        val subBreedPresentOnFilter = SubBreed(breed, "inu")
+        val subBreedAvailableToSelect = listOf(SubBreed(breed, "american"))
+
+        presenter.setFilter(DogFilter(subBreedPresentOnFilter.breed.name, subBreedPresentOnFilter.name))
+        given(useCase.getBreeds())
+            .willReturn(listOf(breed))
+        given(useCase.getSubBreeds(breed))
+            .willReturn(subBreedAvailableToSelect)
+
+        presenter.onStart()
+
+        then(view)
+            .should()
+            .unselectSubBreed()
     }
 
     @Test
@@ -223,6 +318,61 @@ class DogFilterPresenterImplTest {
                 .hideLoadingAnimation()
         }
     }
+}
+
+class RecoverCurrentFilterWithBreedProvider: ArgumentsProvider {
+    override fun provideArguments(context: ExtensionContext?): Stream<out Arguments> = Stream.of(
+        Arguments.of(
+            DogFilter("akita"),
+            listOf(
+                Breed("bulldog"),
+                Breed("akita"),
+                Breed("husky"),
+            ),
+            1
+        ),
+        Arguments.of(
+            DogFilter("akita"),
+            listOf(
+                Breed("bulldog"),
+                Breed("husky"),
+                Breed("akita"),
+            ),
+            2
+        ),
+        Arguments.of(
+            DogFilter("bulldog"),
+            listOf(
+                Breed("bulldog"),
+                Breed("akita"),
+                Breed("husky"),
+            ),
+            0
+        ),
+    )
+}
+
+class RecoverCurrentFilterWithSubBreedProvider: ArgumentsProvider {
+    private val breed = Breed("akita")
+    override fun provideArguments(context: ExtensionContext?): Stream<out Arguments> = Stream.of(
+
+        Arguments.of(
+            DogFilter("akita", "inu"),
+            listOf(
+                SubBreed(breed,"inu"),
+                SubBreed(breed,"american"),
+            ),
+            0
+        ),
+        Arguments.of(
+            DogFilter("akita", "american"),
+            listOf(
+                SubBreed(breed,"inu"),
+                SubBreed(breed,"american"),
+            ),
+            1
+        ),
+    )
 }
 
 class BreedsProvider: ArgumentsProvider {

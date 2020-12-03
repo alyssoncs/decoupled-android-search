@@ -16,6 +16,10 @@ class DogFilterPresenterImpl(
 
     private var filter: DogFilter = DogFilter.createEmpty()
 
+    override fun setFilter(filter: DogFilter) {
+        this.filter = filter
+    }
+
     override fun setView(view: DogFilterView) {
         this.view = view
     }
@@ -69,25 +73,32 @@ class DogFilterPresenterImpl(
         breeds = useCase.getBreeds()
         val breedsName = fromBreedsToBreedsName(breeds)
         view.setBreedSelectionOptions(breedsName)
+
+        if (breedsName.contains(filter.breed)) {
+            val index = breedsName.indexOf(filter.breed)
+            view.selectBreed(index)
+            onBreedSelected(index)
+        }
     }
 
     private fun fromBreedsToBreedsName(breeds: List<Breed>): List<String> {
-        return breeds
-            .asSequence()
-            .map { it.name }
-            .toList()
+        return breeds.map { it.name }
     }
 
     private fun tryToGetAndSetSubBreedOptions(index: Int) {
         subBreeds = useCase.getSubBreeds(breeds[index])
         val subBreedsName = fromSubBreedsToSubBreedsName(subBreeds)
         view.setSubBreedSelectionOptions(subBreedsName)
+
+        if (subBreedsName.contains(filter.subBreed)) {
+            view.selectSubBreed(subBreedsName.indexOf(filter.subBreed))
+        } else {
+            view.unselectSubBreed()
+            onSubBreedDeselected()
+        }
     }
 
     private fun fromSubBreedsToSubBreedsName(subBreeds: List<SubBreed>): List<String> {
-        return subBreeds
-            .asSequence()
-            .map { it.name }
-            .toList()
+        return subBreeds.map { it.name }
     }
 }

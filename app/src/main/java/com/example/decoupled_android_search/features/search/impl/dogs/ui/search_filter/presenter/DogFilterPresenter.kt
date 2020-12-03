@@ -1,8 +1,10 @@
 package com.example.decoupled_android_search.features.search.impl.dogs.ui.search_filter.presenter
 
+import com.example.decoupled_android_search.features.search.impl.dogs.filter.DogFilter
 import com.example.decoupled_android_search.features.search.impl.dogs.ui.search_filter.view.DogFilterView
 
 interface DogFilterPresenter {
+    fun setFilter(filter: DogFilter)
     fun setView(view: DogFilterView)
     fun onStart()
     fun onBreedSelected(index: Int)

@@ -3,6 +3,7 @@ package com.example.decoupled_android_search.features.search.impl.dogs.ui.search
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
+import com.example.decoupled_android_search.features.search.impl.dogs.filter.DogFilter
 import com.example.decoupled_android_search.features.search.impl.dogs.ui.search_filter.presenter.DogFilterPresenter
 import com.example.decoupled_android_search.features.search.impl.dogs.ui.search_filter.view.DogFilterView
 import kotlinx.coroutines.Dispatchers
@@ -11,6 +12,11 @@ import kotlinx.coroutines.launch
 class DogFilterPresenterDispatcher(
     private val presenter: DogFilterPresenter
 ): ViewModel(), DogFilterPresenter {
+
+    override fun setFilter(filter: DogFilter) {
+        presenter.setFilter(filter)
+    }
+
     override fun setView(view: DogFilterView) {
         presenter.setView(view)
     }
@@ -65,6 +71,5 @@ class DogFilterPresenterDispatcher(
                 DogFilterPresenter::class.java
             ).newInstance(presenter)
         }
-
     }
 }
