@@ -9,7 +9,7 @@ class SearchFilterIntent: Intent() {
     abstract class SearchFilter: Parcelable {
         companion object {
             private val EXTRA_SEARCH_FILTER_KEY =
-                "${SearchFilterIntent::class.qualifiedName}.extra.search-filter"
+                "${SearchFilter::class.qualifiedName}.extra.search-filter"
 
             fun getFilterFrom(bundle: Bundle): SearchFilter? {
                 return bundle.getParcelable(EXTRA_SEARCH_FILTER_KEY)
