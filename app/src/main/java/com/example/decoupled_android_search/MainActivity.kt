@@ -26,17 +26,6 @@ class MainActivity : AppCompatActivity() {
         }
 
         animeSearchButton.setOnClickListener {
-//            val filter = AnimeFilter(
-//                name = "naruto",
-//                status = AnimeQuery.Status.AIRING,
-//                rating = AnimeFilter.Rating(AnimeQuery.Rating("all ages", "all")),
-//                genre = AnimeFilter.Genre(AnimeQuery.Genre("action", ""))
-//            )
-//
-//            val intent = Intent(this, AnimeFilterActivity::class.java).apply {
-//                putExtras(filter.toBundle())
-//            }
-//            //val intent = Navigation.getSearchDogsIntent(this, AnimeSearchFactory())
             val intent = Navigation.getSearchIntent(this, AnimeSearchFactory())
             startActivity(intent)
         }
