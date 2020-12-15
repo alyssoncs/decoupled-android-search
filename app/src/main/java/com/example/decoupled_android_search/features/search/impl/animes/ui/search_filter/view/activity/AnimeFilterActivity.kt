@@ -7,9 +7,12 @@ import android.view.View
 import android.widget.ArrayAdapter
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
+import com.example.decoupled_android_search.BuildConfig
 import com.example.decoupled_android_search.R
-import com.example.decoupled_android_search.concrete_infra.paginated_anime_repository_stub.PaginatedAnimeRepositoryStub
+import com.example.decoupled_android_search.concrete_infra.remote_paginated_anime_repository.endpoints.AnimeEndpoints
+import com.example.decoupled_android_search.concrete_infra.remote_paginated_anime_repository.endpoints.RemotePaginatedAnimeRepositoryAdapter
 import com.example.decoupled_android_search.core.use_cases.anime_search.AnimeSearchInteractor
+import com.example.decoupled_android_search.core.use_cases.anime_search.AnimeSearchUseCase
 import com.example.decoupled_android_search.features.search.contract.SearchFilterIntent
 import com.example.decoupled_android_search.features.search.impl.animes.filter.AnimeFilter
 import com.example.decoupled_android_search.features.search.impl.animes.ui.search_filter.presenter.AnimeFilterPresenter
@@ -22,6 +25,10 @@ import kotlinx.android.synthetic.main.activity_anime_filter.animeRatingSpinner
 import kotlinx.android.synthetic.main.activity_anime_filter.animeStatusSpinner
 import kotlinx.android.synthetic.main.activity_anime_filter.confirmButton
 import kotlinx.android.synthetic.main.activity_anime_filter.loadingWidget
+import okhttp3.OkHttpClient
+import retrofit2.Retrofit
+import retrofit2.converter.gson.GsonConverterFactory
+import java.util.concurrent.TimeUnit
 
 fun View.setVisible(visible: Boolean) {
     this.visibility = if (visible) View.VISIBLE else View.INVISIBLE
@@ -85,8 +92,7 @@ class AnimeFilterActivity : AppCompatActivity() {
     private fun getViewModel() = ViewModelProvider(this).get(AnimeFilterViewModel::class.java)
 
     private fun getPresenter(view: AnimeFilterView): AnimeFilterPresenter {
-        val repository = PaginatedAnimeRepositoryStub()
-        val useCase = AnimeSearchInteractor(repository)
+        val useCase = getUseCase()
         val presenter = AnimeFilterPresenterImpl(useCase)
         val viewModelFactory = AnimeFilterPresenterDispatcher.Factory(presenter)
 
@@ -94,6 +100,23 @@ class AnimeFilterActivity : AppCompatActivity() {
             .get(AnimeFilterPresenterDispatcher::class.java).apply {
                 setView(view)
             }
+    }
+
+    private fun getUseCase(): AnimeSearchUseCase {
+        val retrofit = Retrofit.Builder()
+            .baseUrl("${BuildConfig.JIKAN_BASE_URL}/")
+            .addConverterFactory(GsonConverterFactory.create())
+            .client(
+                OkHttpClient.Builder()
+                    .connectTimeout(15, TimeUnit.SECONDS)
+                    .readTimeout(15, TimeUnit.SECONDS)
+                    .writeTimeout(15, TimeUnit.SECONDS)
+                    .build()
+            )
+            .build()
+        val endpoint = retrofit.create(AnimeEndpoints::class.java)
+        val repository = RemotePaginatedAnimeRepositoryAdapter(endpoint)
+        return AnimeSearchInteractor(repository)
     }
 
     private fun prepareAnimeNameListener() {

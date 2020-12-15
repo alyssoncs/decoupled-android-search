@@ -17,6 +17,7 @@ android {
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
 
         buildConfigField 'String', 'DOG_API_BASE_URL', DOG_API_BASE_URL
+        buildConfigField 'String', 'JIKAN_BASE_URL', JIKAN_BASE_URL
     }
 
     testOptions {
