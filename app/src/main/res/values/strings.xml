@@ -18,4 +18,5 @@
     <string name="anime_score_label">Score:</string>
     <string name="anime_score_upper_bound_separator">/</string>
     <string name="anime_score_upper_bound">10.0</string>
+    <string name="search_button_label">Search</string>
 </resources>
