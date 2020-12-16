@@ -1,5 +1,6 @@
 package com.example.decoupled_android_search.features.search.impl.dogs.ui.search_filter.view.activity
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import android.widget.ArrayAdapter
@@ -11,7 +12,6 @@ import com.example.decoupled_android_search.concrete_infra.remote_paginated_dog_
 import com.example.decoupled_android_search.concrete_infra.remote_paginated_dog_repository.endpoits.DogsEndpoints
 import com.example.decoupled_android_search.core.use_cases.dog_search.DogSearchInteractor
 import com.example.decoupled_android_search.features.search.contract.SearchFilter
-import com.example.decoupled_android_search.features.search.contract.SearchFilterIntent
 import com.example.decoupled_android_search.features.search.impl.dogs.filter.DogFilter
 import com.example.decoupled_android_search.features.search.impl.dogs.ui.search_filter.presenter.DogFilterPresenter
 import com.example.decoupled_android_search.features.search.impl.dogs.ui.search_filter.presenter.DogFilterPresenterImpl
@@ -200,7 +200,7 @@ class DogFilterActivity : AppCompatActivity() {
         viewModel.returnSelection.observe(this) { returnEvent ->
             val event = returnEvent.getContentIfNotHandled()
             if (event?.shouldReturn == true) {
-                val intent = SearchFilterIntent().apply {
+                val intent = Intent().apply {
                     val filter = event.dogFilter
                     putExtras(filter.toBundle())
                 }

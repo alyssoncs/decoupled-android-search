@@ -1,5 +1,6 @@
 package com.example.decoupled_android_search.features.search.impl.animes.ui.search_filter.view.activity
 
+import android.content.Intent
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
@@ -14,7 +15,6 @@ import com.example.decoupled_android_search.concrete_infra.remote_paginated_anim
 import com.example.decoupled_android_search.core.use_cases.anime_search.AnimeSearchInteractor
 import com.example.decoupled_android_search.core.use_cases.anime_search.AnimeSearchUseCase
 import com.example.decoupled_android_search.features.search.contract.SearchFilter
-import com.example.decoupled_android_search.features.search.contract.SearchFilterIntent
 import com.example.decoupled_android_search.features.search.impl.animes.filter.AnimeFilter
 import com.example.decoupled_android_search.features.search.impl.animes.ui.search_filter.presenter.AnimeFilterPresenter
 import com.example.decoupled_android_search.features.search.impl.animes.ui.search_filter.presenter.AnimeFilterPresenterImpl
@@ -248,7 +248,7 @@ class AnimeFilterActivity : AppCompatActivity() {
     private fun observeAnimeFilterToReturn() {
         viewModel.animeFilterToReturn.observe(this) { animeFilterEvent ->
             animeFilterEvent.getContentIfNotHandled()?.let {
-                val intent = SearchFilterIntent().apply {
+                val intent = Intent().apply {
                     putExtras(it.toBundle())
                 }
 

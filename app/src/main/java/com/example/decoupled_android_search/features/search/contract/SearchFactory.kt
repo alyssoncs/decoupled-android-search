@@ -1,6 +1,7 @@
 package com.example.decoupled_android_search.features.search.contract
 
 import android.content.Context
+import android.content.Intent
 import android.os.Parcelable
 
 interface SearchFactory: Parcelable {
@@ -9,7 +10,7 @@ interface SearchFactory: Parcelable {
     fun createSearchFilterIntent(
         context: Context,
         currentFilter: SearchFilter
-    ): SearchFilterIntent
+    ): Intent
 
     fun createSearchableFragment(
         filter: SearchFilter
