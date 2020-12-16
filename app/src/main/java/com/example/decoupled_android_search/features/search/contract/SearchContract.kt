@@ -21,7 +21,7 @@ interface SearchContract {
 
         protected lateinit var searchableActivity: SearchableActivity
 
-        abstract fun createSearchableFragment(): SearchableFragment<Filter>
+        protected abstract fun createSearchableFragment(): SearchableFragment<Filter>
 
         fun newInstance(filter: SearchFilter): SearchableFragment<Filter> {
             return createSearchableFragment().apply {
