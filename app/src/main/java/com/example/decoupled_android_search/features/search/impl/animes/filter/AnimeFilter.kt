@@ -2,7 +2,7 @@ package com.example.decoupled_android_search.features.search.impl.animes.filter
 
 import android.os.Parcelable
 import com.example.decoupled_android_search.core.use_cases.anime_search.AnimeQuery
-import com.example.decoupled_android_search.features.search.contract.SearchFilterIntent
+import com.example.decoupled_android_search.features.search.contract.SearchFilter
 import kotlinx.android.parcel.Parcelize
 
 @Parcelize
@@ -11,7 +11,7 @@ data class AnimeFilter(
     val status: AnimeQuery.Status? = null,
     val rating: Rating? = null,
     val genre: Genre? = null,
-): SearchFilterIntent.SearchFilter() {
+): SearchFilter() {
     companion object {
         fun createEmpty() = AnimeFilter()
     }

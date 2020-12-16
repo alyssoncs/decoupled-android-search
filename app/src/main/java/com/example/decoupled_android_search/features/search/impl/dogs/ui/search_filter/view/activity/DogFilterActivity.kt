@@ -10,6 +10,7 @@ import com.example.decoupled_android_search.R
 import com.example.decoupled_android_search.concrete_infra.remote_paginated_dog_repository.RemotePaginatedDogRepositoryAdapter
 import com.example.decoupled_android_search.concrete_infra.remote_paginated_dog_repository.endpoits.DogsEndpoints
 import com.example.decoupled_android_search.core.use_cases.dog_search.DogSearchInteractor
+import com.example.decoupled_android_search.features.search.contract.SearchFilter
 import com.example.decoupled_android_search.features.search.contract.SearchFilterIntent
 import com.example.decoupled_android_search.features.search.impl.dogs.filter.DogFilter
 import com.example.decoupled_android_search.features.search.impl.dogs.ui.search_filter.presenter.DogFilterPresenter
@@ -54,8 +55,8 @@ class DogFilterActivity : AppCompatActivity() {
     }
 
     private fun getSearchFilterFromIntent(): DogFilter {
-        val filter: SearchFilterIntent.SearchFilter? = intent.extras?.let {
-            SearchFilterIntent.SearchFilter.getFilterFrom(it)
+        val filter: SearchFilter? = intent.extras?.let {
+            SearchFilter.getFilterFrom(it)
         }
 
         return if (filter != null)

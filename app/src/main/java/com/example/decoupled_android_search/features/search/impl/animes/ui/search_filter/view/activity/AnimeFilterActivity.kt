@@ -13,6 +13,7 @@ import com.example.decoupled_android_search.concrete_infra.remote_paginated_anim
 import com.example.decoupled_android_search.concrete_infra.remote_paginated_anime_repository.endpoints.RemotePaginatedAnimeRepositoryAdapter
 import com.example.decoupled_android_search.core.use_cases.anime_search.AnimeSearchInteractor
 import com.example.decoupled_android_search.core.use_cases.anime_search.AnimeSearchUseCase
+import com.example.decoupled_android_search.features.search.contract.SearchFilter
 import com.example.decoupled_android_search.features.search.contract.SearchFilterIntent
 import com.example.decoupled_android_search.features.search.impl.animes.filter.AnimeFilter
 import com.example.decoupled_android_search.features.search.impl.animes.ui.search_filter.presenter.AnimeFilterPresenter
@@ -79,8 +80,8 @@ class AnimeFilterActivity : AppCompatActivity() {
     }
 
     private fun getSearchFilterFromIntent(): AnimeFilter {
-        val filter: SearchFilterIntent.SearchFilter? = intent.extras?.let {
-            SearchFilterIntent.SearchFilter.getFilterFrom(it)
+        val filter: SearchFilter? = intent.extras?.let {
+            SearchFilter.getFilterFrom(it)
         }
 
         return if (filter != null)

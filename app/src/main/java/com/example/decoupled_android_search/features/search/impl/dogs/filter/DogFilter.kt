@@ -1,13 +1,13 @@
 package com.example.decoupled_android_search.features.search.impl.dogs.filter
 
-import com.example.decoupled_android_search.features.search.contract.SearchFilterIntent
+import com.example.decoupled_android_search.features.search.contract.SearchFilter
 import kotlinx.android.parcel.Parcelize
 
 @Parcelize
 data class DogFilter(
     var breed: String = "",
     var subBreed: String = ""
-) : SearchFilterIntent.SearchFilter() {
+) : SearchFilter() {
     companion object {
         fun createEmpty() = DogFilter()
     }

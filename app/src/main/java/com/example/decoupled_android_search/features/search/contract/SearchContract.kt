@@ -13,7 +13,7 @@ interface SearchContract {
         fun notifyInvalidFilter()
     }
 
-    abstract class SearchableFragment<out Filter: SearchFilterIntent.SearchFilter>: Fragment() {
+    abstract class SearchableFragment<out Filter: SearchFilter>: Fragment() {
         companion object {
             private val SEARCH_FILTER_ARGUMENT_KEY =
                 "${SearchableFragment::class.qualifiedName}.extra.search-filter"
@@ -23,7 +23,7 @@ interface SearchContract {
 
         abstract fun createSearchableFragment(): SearchableFragment<Filter>
 
-        fun newInstance(filter: SearchFilterIntent.SearchFilter): SearchableFragment<Filter> {
+        fun newInstance(filter: SearchFilter): SearchableFragment<Filter> {
             return createSearchableFragment().apply {
                 arguments = Bundle().apply {
                     putParcelable(SEARCH_FILTER_ARGUMENT_KEY, filter)
@@ -32,7 +32,7 @@ interface SearchContract {
         }
 
         protected fun getSearchFilter(): Filter? {
-            val nullableFilter: SearchFilterIntent.SearchFilter? = getFilter()
+            val nullableFilter: SearchFilter? = getFilter()
 
             return if (nullableFilter == null) {
                 null
@@ -46,7 +46,7 @@ interface SearchContract {
             }
         }
 
-        private fun getFilter(): SearchFilterIntent.SearchFilter? {
+        private fun getFilter(): SearchFilter? {
             return arguments?.getParcelable(SEARCH_FILTER_ARGUMENT_KEY)
         }
 

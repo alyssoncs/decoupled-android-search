@@ -4,14 +4,14 @@ import android.content.Context
 import android.os.Parcelable
 
 interface SearchFactory: Parcelable {
-    fun createEmptySearchFilter(): SearchFilterIntent.SearchFilter
+    fun createEmptySearchFilter(): SearchFilter
 
     fun createSearchFilterIntent(
         context: Context,
-        currentFilter: SearchFilterIntent.SearchFilter
+        currentFilter: SearchFilter
     ): SearchFilterIntent
 
     fun createSearchableFragment(
-        filter: SearchFilterIntent.SearchFilter
-    ): SearchContract.SearchableFragment<SearchFilterIntent.SearchFilter>
+        filter: SearchFilter
+    ): SearchContract.SearchableFragment<SearchFilter>
 }

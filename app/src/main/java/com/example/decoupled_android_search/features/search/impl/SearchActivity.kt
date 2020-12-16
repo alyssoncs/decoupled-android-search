@@ -2,14 +2,16 @@ package com.example.decoupled_android_search.features.search.impl
 
 import android.app.Activity
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import com.example.decoupled_android_search.R
 import com.example.decoupled_android_search.features.search.contract.SearchContract
 import com.example.decoupled_android_search.features.search.contract.SearchFactory
-import com.example.decoupled_android_search.features.search.contract.SearchFilterIntent
-import kotlinx.android.synthetic.main.activity_search.*
+import com.example.decoupled_android_search.features.search.contract.SearchFilter
+import kotlinx.android.synthetic.main.activity_search.fabFilter
+import kotlinx.android.synthetic.main.activity_search.swipeRefresh
+import kotlinx.android.synthetic.main.activity_search.topAppBar
 
 class SearchActivity : AppCompatActivity(), SearchContract.SearchableActivity {
     companion object {
@@ -20,7 +22,7 @@ class SearchActivity : AppCompatActivity(), SearchContract.SearchableActivity {
         val SEARCH_FACTORY_KEY = "$PREFIX.searchFactory"
     }
 
-    private lateinit var searchFilter: SearchFilterIntent.SearchFilter
+    private lateinit var searchFilter: SearchFilter
     private lateinit var searchFactory: SearchFactory
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -106,7 +108,7 @@ class SearchActivity : AppCompatActivity(), SearchContract.SearchableActivity {
 
     private fun retrieveSavedInstanceState(savedInstanceState: Bundle) {
         val factory: SearchFactory? = retrieveSearchFactoryFromSavedState(savedInstanceState)
-        val filter: SearchFilterIntent.SearchFilter? = retrieveSearchFilterFromSavedState(savedInstanceState)
+        val filter: SearchFilter? = retrieveSearchFilterFromSavedState(savedInstanceState)
 
         if (factory != null)
             this.searchFactory = factory
@@ -126,7 +128,7 @@ class SearchActivity : AppCompatActivity(), SearchContract.SearchableActivity {
         }
     }
 
-    private fun retrieveSearchFilterFromSavedState(savedInstanceState: Bundle): SearchFilterIntent.SearchFilter? =
+    private fun retrieveSearchFilterFromSavedState(savedInstanceState: Bundle): SearchFilter? =
         savedInstanceState.getParcelable(SEARCH_FILTER_KEY)
 
     private fun retrieveSearchFactoryFromSavedState(savedInstanceState: Bundle): SearchFactory? =
@@ -141,10 +143,10 @@ class SearchActivity : AppCompatActivity(), SearchContract.SearchableActivity {
         startActivityForResult(callingIntent, 1)
     }
 
-    private fun extractFilterFromIntent(intent: Intent?): SearchFilterIntent.SearchFilter? {
+    private fun extractFilterFromIntent(intent: Intent?): SearchFilter? {
         val bundle = intent?.extras
         if (bundle != null)
-            return SearchFilterIntent.SearchFilter.getFilterFrom(bundle)
+            return SearchFilter.getFilterFrom(bundle)
 
         return null
     }
