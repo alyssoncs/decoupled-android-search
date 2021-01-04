@@ -1,6 +1,6 @@
 package com.example.decoupled_android_search.concrete_infra.paginated_anime_repository_stub
 
-import com.example.decoupled_android_search.core.use_cases.anime_search.Anime
+import com.example.decoupled_android_search.core.entities.Anime
 import com.example.decoupled_android_search.core.use_cases.anime_search.AnimeQuery
 import com.example.decoupled_android_search.core.use_cases.anime_search.infra.PaginatedAnimeRepository
 import kotlinx.coroutines.delay

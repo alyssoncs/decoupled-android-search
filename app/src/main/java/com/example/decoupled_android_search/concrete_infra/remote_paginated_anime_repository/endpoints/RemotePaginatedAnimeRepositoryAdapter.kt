@@ -4,7 +4,7 @@ import com.example.decoupled_android_search.concrete_infra.remote_paginated_anim
 import com.example.decoupled_android_search.concrete_infra.remote_paginated_anime_repository.endpoints.service_model.AnimeApiRated
 import com.example.decoupled_android_search.concrete_infra.remote_paginated_anime_repository.endpoints.service_model.AnimeApiStatus
 import com.example.decoupled_android_search.concrete_infra.remote_paginated_anime_repository.endpoints.service_model.AnimeSearchResponse
-import com.example.decoupled_android_search.core.use_cases.anime_search.Anime
+import com.example.decoupled_android_search.core.entities.Anime
 import com.example.decoupled_android_search.core.use_cases.anime_search.AnimeQuery
 import com.example.decoupled_android_search.core.use_cases.anime_search.infra.PaginatedAnimeRepository
 import retrofit2.Response

@@ -1,6 +1,6 @@
 package com.example.decoupled_android_search.core.use_cases.anime_search
 
-import java.net.URL
+import com.example.decoupled_android_search.core.entities.Anime
 
 interface AnimeSearchUseCase {
     fun getStatus(): List<AnimeQuery.Status> = AnimeQuery.Status.values().asList()
@@ -10,14 +10,6 @@ interface AnimeSearchUseCase {
 
     class SearchException: Throwable()
 }
-
-data class Anime(
-    val name: String,
-    val imageUrl: URL,
-    val synopsis: String,
-    val episodes: Int,
-    val score: Double
-)
 
 data class AnimeQuery(
     val name: String,

@@ -3,7 +3,7 @@ package com.example.decoupled_android_search.features.search.impl.animes.ui.sear
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.example.decoupled_android_search.core.use_cases.anime_search.Anime
+import com.example.decoupled_android_search.core.entities.Anime
 import com.example.decoupled_android_search.features.search.impl.animes.ui.search_results.view.AnimeSearchView
 import com.example.decoupled_android_search.libraries.mvvm_event.MvvmEvent
 

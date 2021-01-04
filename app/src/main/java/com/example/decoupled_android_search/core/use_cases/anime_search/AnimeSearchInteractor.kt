@@ -1,5 +1,6 @@
 package com.example.decoupled_android_search.core.use_cases.anime_search
 
+import com.example.decoupled_android_search.core.entities.Anime
 import com.example.decoupled_android_search.core.use_cases.anime_search.infra.PaginatedAnimeRepository
 
 class AnimeSearchInteractor(

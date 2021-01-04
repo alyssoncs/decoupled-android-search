@@ -7,7 +7,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.decoupled_android_search.R
-import com.example.decoupled_android_search.core.use_cases.anime_search.Anime
+import com.example.decoupled_android_search.core.entities.Anime
 import kotlinx.android.synthetic.main.item_anime.view.animeEpisodes
 import kotlinx.android.synthetic.main.item_anime.view.animeImage
 import kotlinx.android.synthetic.main.item_anime.view.animeName

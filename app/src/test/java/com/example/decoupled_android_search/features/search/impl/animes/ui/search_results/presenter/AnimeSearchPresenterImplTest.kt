@@ -1,6 +1,6 @@
 package com.example.decoupled_android_search.features.search.impl.animes.ui.search_results.presenter
 
-import com.example.decoupled_android_search.core.use_cases.anime_search.Anime
+import com.example.decoupled_android_search.core.entities.Anime
 import com.example.decoupled_android_search.core.use_cases.anime_search.AnimeQuery
 import com.example.decoupled_android_search.core.use_cases.anime_search.AnimeSearchUseCase
 import com.example.decoupled_android_search.features.search.impl.animes.filter.AnimeFilter

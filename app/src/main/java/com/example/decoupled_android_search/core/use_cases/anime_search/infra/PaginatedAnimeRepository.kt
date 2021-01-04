@@ -1,6 +1,6 @@
 package com.example.decoupled_android_search.core.use_cases.anime_search.infra
 
-import com.example.decoupled_android_search.core.use_cases.anime_search.Anime
+import com.example.decoupled_android_search.core.entities.Anime
 import com.example.decoupled_android_search.core.use_cases.anime_search.AnimeQuery
 
 interface PaginatedAnimeRepository {
