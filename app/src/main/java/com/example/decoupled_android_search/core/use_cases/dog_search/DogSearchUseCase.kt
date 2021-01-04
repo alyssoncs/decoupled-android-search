@@ -1,5 +1,7 @@
 package com.example.decoupled_android_search.core.use_cases.dog_search
 
+import com.example.decoupled_android_search.core.entities.Breed
+import com.example.decoupled_android_search.core.entities.SubBreed
 import java.net.URL
 
 interface DogSearchUseCase {
@@ -10,6 +12,3 @@ interface DogSearchUseCase {
 
     class SearchException: Throwable()
 }
-
-data class Breed(val name: String)
-data class SubBreed(val breed: Breed, val name: String)

@@ -1,5 +1,7 @@
 package com.example.decoupled_android_search.core.use_cases.dog_search
 
+import com.example.decoupled_android_search.core.entities.Breed
+import com.example.decoupled_android_search.core.entities.SubBreed
 import com.example.decoupled_android_search.core.use_cases.dog_search.infra.PaginatedDogRepository
 import java.net.URL
 

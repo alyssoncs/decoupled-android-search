@@ -1,11 +1,13 @@
 package com.example.decoupled_android_search.core.use_cases.dog_search
 
+import com.example.decoupled_android_search.core.entities.Breed
+import com.example.decoupled_android_search.core.entities.SubBreed
 import com.example.decoupled_android_search.core.use_cases.dog_search.infra.PaginatedDogRepository
 import com.google.common.truth.Truth.assertThat
 import com.nhaarman.mockitokotlin2.any
 import org.junit.jupiter.api.Assertions.assertThrows
-import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.BeforeEach
+import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
 import org.junit.jupiter.api.extension.ExtensionContext
 import org.junit.jupiter.params.ParameterizedTest

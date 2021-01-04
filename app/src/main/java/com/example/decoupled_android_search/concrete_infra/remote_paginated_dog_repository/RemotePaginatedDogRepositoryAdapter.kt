@@ -4,8 +4,8 @@ import com.example.decoupled_android_search.concrete_infra.remote_paginated_dog_
 import com.example.decoupled_android_search.concrete_infra.remote_paginated_dog_repository.endpoits.service_model.AllBreedImagesResponse
 import com.example.decoupled_android_search.concrete_infra.remote_paginated_dog_repository.endpoits.service_model.AllBreedsResponse
 import com.example.decoupled_android_search.concrete_infra.remote_paginated_dog_repository.endpoits.service_model.AllSubBreedsResponse
-import com.example.decoupled_android_search.core.use_cases.dog_search.Breed
-import com.example.decoupled_android_search.core.use_cases.dog_search.SubBreed
+import com.example.decoupled_android_search.core.entities.Breed
+import com.example.decoupled_android_search.core.entities.SubBreed
 import com.example.decoupled_android_search.core.use_cases.dog_search.infra.PaginatedDogRepository
 import retrofit2.Response
 import java.io.IOException

@@ -1,7 +1,7 @@
 package com.example.decoupled_android_search.concrete_infra.paginated_dog_repository_stub
 
-import com.example.decoupled_android_search.core.use_cases.dog_search.Breed
-import com.example.decoupled_android_search.core.use_cases.dog_search.SubBreed
+import com.example.decoupled_android_search.core.entities.Breed
+import com.example.decoupled_android_search.core.entities.SubBreed
 import com.example.decoupled_android_search.core.use_cases.dog_search.infra.PaginatedDogRepository
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.runBlocking

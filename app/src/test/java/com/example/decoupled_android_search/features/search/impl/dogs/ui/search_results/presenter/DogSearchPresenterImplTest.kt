@@ -1,8 +1,8 @@
 package com.example.decoupled_android_search.features.search.impl.dogs.ui.search_results.presenter
 
-import com.example.decoupled_android_search.core.use_cases.dog_search.Breed
+import com.example.decoupled_android_search.core.entities.Breed
+import com.example.decoupled_android_search.core.entities.SubBreed
 import com.example.decoupled_android_search.core.use_cases.dog_search.DogSearchUseCase
-import com.example.decoupled_android_search.core.use_cases.dog_search.SubBreed
 import com.example.decoupled_android_search.features.search.impl.dogs.filter.DogFilter
 import com.example.decoupled_android_search.features.search.impl.dogs.ui.search_results.view.DogSearchView
 import com.google.common.truth.Truth.assertThat
@@ -19,7 +19,8 @@ import org.junit.jupiter.params.provider.ArgumentsSource
 import org.mockito.BDDMockito.given
 import org.mockito.BDDMockito.then
 import org.mockito.Mock
-import org.mockito.Mockito.*
+import org.mockito.Mockito.inOrder
+import org.mockito.Mockito.times
 import org.mockito.junit.jupiter.MockitoExtension
 import java.net.URL
 import java.util.stream.Stream
