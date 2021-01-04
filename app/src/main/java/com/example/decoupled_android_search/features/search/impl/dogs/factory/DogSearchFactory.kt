@@ -11,7 +11,7 @@ import com.example.decoupled_android_search.features.search.impl.dogs.ui.search_
 import kotlinx.android.parcel.Parcelize
 
 @Parcelize
-class DogSearchFactory: SearchFactory {
+object DogSearchFactory: SearchFactory {
     override fun createEmptySearchFilter(): SearchFilter {
         return DogFilter.createEmpty()
     }

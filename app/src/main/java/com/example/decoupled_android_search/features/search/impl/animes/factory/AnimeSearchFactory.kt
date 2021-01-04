@@ -11,7 +11,7 @@ import com.example.decoupled_android_search.features.search.impl.animes.ui.searc
 import kotlinx.android.parcel.Parcelize
 
 @Parcelize
-class AnimeSearchFactory: SearchFactory {
+object AnimeSearchFactory: SearchFactory {
     override fun createEmptySearchFilter(): SearchFilter {
         return AnimeFilter.createEmpty()
     }

@@ -21,12 +21,12 @@ class MainActivity : AppCompatActivity() {
         setSupportActionBar(toolbar)
 
         dogSearchButton.setOnClickListener {
-            val intent = Navigation.getSearchIntent(this, DogSearchFactory())
+            val intent = Navigation.getSearchIntent(this, DogSearchFactory)
             startActivity(intent)
         }
 
         animeSearchButton.setOnClickListener {
-            val intent = Navigation.getSearchIntent(this, AnimeSearchFactory())
+            val intent = Navigation.getSearchIntent(this, AnimeSearchFactory)
             startActivity(intent)
         }
     }
