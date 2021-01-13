@@ -13,5 +13,4 @@ object Navigation {
                 factory
             )
     }
-
 }
