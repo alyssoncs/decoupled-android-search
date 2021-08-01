@@ -73,7 +73,7 @@ That can be done without changing a single line of the `SearchableActivity`, and
 
 Depending on who you ask, this is a complicated design, I don't think is really difficult to understand and maintain, but I won't enter in this discussion here.
 
-What I can say is that it serve at least one purpose, before the app was released, I was asked to convert the `FloatingActionButton` that redirects to the "search filter screen", into a static button between the app bar and the result list (don't ask me) in all the search feature screens, and I only had to change the `SearchableActivity` layout.
+What I can say is that it served at least one purpose, before the app was released, I was asked to convert the `FloatingActionButton` that redirects to the "search filter screen", into a static button between the app bar and the result list (don't ask me) in all the search feature screens, and I only had to change the `SearchableActivity` layout.
 
 Other than that, It was pretty fun design to think and implement, so it was worth for me.
 
