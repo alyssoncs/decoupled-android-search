@@ -21,9 +21,8 @@ allprojects {
     }
 
     tasks.withType(Test) {
-
+        useJUnitPlatform()
         testLogging {
-
             exceptionFormat "full"
 
             showCauses true

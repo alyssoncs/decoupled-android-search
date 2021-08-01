@@ -20,12 +20,6 @@ android {
         buildConfigField 'String', 'JIKAN_BASE_URL', JIKAN_BASE_URL
     }
 
-    testOptions {
-        unitTests.all {
-            useJUnitPlatform()
-        }
-    }
-
     buildTypes {
         release {
             minifyEnabled false
