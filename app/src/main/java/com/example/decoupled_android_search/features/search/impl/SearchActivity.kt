@@ -62,6 +62,11 @@ class SearchActivity : AppCompatActivity(), SearchContract.SearchableActivity {
         super.onSaveInstanceState(outState)
     }
 
+    override fun onSupportNavigateUp(): Boolean {
+        onBackPressed()
+        return true
+    }
+
     override fun showLoadingAnimation() {
         swipeRefresh.isRefreshing = true
     }
