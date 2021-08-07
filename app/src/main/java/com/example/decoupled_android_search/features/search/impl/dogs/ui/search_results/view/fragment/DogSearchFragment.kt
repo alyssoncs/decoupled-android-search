@@ -1,5 +1,6 @@
 package com.example.decoupled_android_search.features.search.impl.dogs.ui.search_results.view.fragment
 
+import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -7,31 +8,40 @@ import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
-import com.example.decoupled_android_search.BuildConfig
 import com.example.decoupled_android_search.R
-import com.example.decoupled_android_search.concrete_infra.remote_paginated_dog_repository.RemotePaginatedDogRepositoryAdapter
-import com.example.decoupled_android_search.concrete_infra.remote_paginated_dog_repository.endpoits.DogsEndpoints
-import com.example.decoupled_android_search.core.use_cases.dog_search.DogSearchInteractor
+import com.example.decoupled_android_search.concrete_infra.di.DaggerConcreteInfraComponent
 import com.example.decoupled_android_search.features.search.contract.SearchContract
+import com.example.decoupled_android_search.features.search.impl.dogs.di.DogPresentationComponent
 import com.example.decoupled_android_search.features.search.impl.dogs.filter.DogFilter
 import com.example.decoupled_android_search.features.search.impl.dogs.ui.search_results.presenter.DogSearchPresenter
-import com.example.decoupled_android_search.features.search.impl.dogs.ui.search_results.presenter.DogSearchPresenterImpl
 import com.example.decoupled_android_search.features.search.impl.dogs.ui.search_results.view.DogSearchView
 import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.fragment_dog_search.dogImageList
 import kotlinx.android.synthetic.main.fragment_dog_search.rootContainer
-import okhttp3.OkHttpClient
-import retrofit2.Retrofit
-import retrofit2.converter.gson.GsonConverterFactory
-import java.util.concurrent.TimeUnit
+import javax.inject.Inject
 
 class DogSearchFragment: SearchContract.SearchableFragment<DogFilter>() {
 
+    @Inject
+    lateinit var _presenter: DogSearchPresenter
     private lateinit var viewModel: DogSearchViewModel
     private lateinit var presenter: DogSearchPresenter
 
+    private val component: DogPresentationComponent by lazy {
+        val filter = getSearchFilter() ?: DogFilter.createEmpty()
+        DaggerConcreteInfraComponent.create()
+            .dogPresentationComponentBuilder()
+            .addDogFilter(filter)
+            .build()
+    }
+
     override fun createSearchableFragment(): SearchContract.SearchableFragment<DogFilter> {
         return DogSearchFragment()
+    }
+
+    override fun onAttach(context: Context) {
+        component.inject(this)
+        super.onAttach(context)
     }
 
     override fun onCreateView(
@@ -56,30 +66,11 @@ class DogSearchFragment: SearchContract.SearchableFragment<DogFilter>() {
     private fun getViewModel() = ViewModelProvider(this).get(DogSearchViewModel::class.java)
 
     private fun getPresenter(view: DogSearchView): DogSearchPresenter {
-        val useCase = getUseCase()
-        val presenter = DogSearchPresenterImpl(useCase, getSearchFilter() ?: DogFilter.createEmpty())
-        presenter.setView(view)
-        val viewModelFactory = DogSearchPresenterDispatcher.Factory(presenter)
+        _presenter.setView(view)
+        val viewModelFactory = DogSearchPresenterDispatcher.Factory(_presenter)
 
         return ViewModelProvider(this, viewModelFactory)
             .get(DogSearchPresenterDispatcher::class.java)
-    }
-
-    private fun getUseCase(): DogSearchInteractor {
-        val retrofit = Retrofit.Builder()
-            .baseUrl("${BuildConfig.DOG_API_BASE_URL}/")
-            .addConverterFactory(GsonConverterFactory.create())
-            .client(
-                OkHttpClient.Builder()
-                    .connectTimeout(15, TimeUnit.SECONDS)
-                    .readTimeout(15, TimeUnit.SECONDS)
-                    .writeTimeout(15, TimeUnit.SECONDS)
-                    .build()
-            )
-            .build()
-        val endpoint = retrofit.create(DogsEndpoints::class.java)
-        val repository = RemotePaginatedDogRepositoryAdapter(endpoint)
-        return DogSearchInteractor(repository)
     }
 
     private fun subscribeUi() {
