@@ -10,14 +10,15 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import com.example.decoupled_android_search.BuildConfig
 import com.example.decoupled_android_search.R
+import com.example.decoupled_android_search.concrete_infra.di.DaggerConcreteInfraComponent
 import com.example.decoupled_android_search.concrete_infra.remote_paginated_anime_repository.endpoints.AnimeEndpoints
 import com.example.decoupled_android_search.concrete_infra.remote_paginated_anime_repository.endpoints.RemotePaginatedAnimeRepositoryAdapter
 import com.example.decoupled_android_search.core.use_cases.anime_search.AnimeSearchInteractor
 import com.example.decoupled_android_search.core.use_cases.anime_search.AnimeSearchUseCase
 import com.example.decoupled_android_search.features.search.contract.SearchFilter
+import com.example.decoupled_android_search.features.search.impl.animes.di.AnimePresentationComponent
 import com.example.decoupled_android_search.features.search.impl.animes.filter.AnimeFilter
 import com.example.decoupled_android_search.features.search.impl.animes.ui.search_filter.presenter.AnimeFilterPresenter
-import com.example.decoupled_android_search.features.search.impl.animes.ui.search_filter.presenter.AnimeFilterPresenterImpl
 import com.example.decoupled_android_search.features.search.impl.animes.ui.search_filter.view.AnimeFilterView
 import com.tiper.MaterialSpinner
 import kotlinx.android.synthetic.main.activity_anime_filter.animeGenreSpinner
@@ -30,6 +31,7 @@ import okhttp3.OkHttpClient
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import java.util.concurrent.TimeUnit
+import javax.inject.Inject
 
 fun View.setVisible(visible: Boolean) {
     this.visibility = if (visible) View.VISIBLE else View.INVISIBLE
@@ -37,12 +39,20 @@ fun View.setVisible(visible: Boolean) {
 
 class AnimeFilterActivity : AppCompatActivity() {
 
+    @Inject
+    lateinit var _presenter: AnimeFilterPresenter
     private lateinit var viewModel: AnimeFilterViewModel
     private lateinit var presenter: AnimeFilterPresenter
 
     private lateinit var searchFilter: AnimeFilter
 
+    private val component: AnimePresentationComponent by lazy {
+        DaggerConcreteInfraComponent.create()
+            .animePresentationComponent()
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
+        component.inject(this)
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_anime_filter)
 
@@ -93,9 +103,7 @@ class AnimeFilterActivity : AppCompatActivity() {
     private fun getViewModel() = ViewModelProvider(this).get(AnimeFilterViewModel::class.java)
 
     private fun getPresenter(view: AnimeFilterView): AnimeFilterPresenter {
-        val useCase = getUseCase()
-        val presenter = AnimeFilterPresenterImpl(useCase)
-        val viewModelFactory = AnimeFilterPresenterDispatcher.Factory(presenter)
+        val viewModelFactory = AnimeFilterPresenterDispatcher.Factory(_presenter)
 
         return ViewModelProvider(this, viewModelFactory)
             .get(AnimeFilterPresenterDispatcher::class.java).apply {
