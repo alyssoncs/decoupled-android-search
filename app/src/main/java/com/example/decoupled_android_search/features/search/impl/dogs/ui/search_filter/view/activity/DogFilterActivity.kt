@@ -6,15 +6,12 @@ import android.view.View
 import android.widget.ArrayAdapter
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
-import com.example.decoupled_android_search.BuildConfig
 import com.example.decoupled_android_search.R
-import com.example.decoupled_android_search.concrete_infra.remote_paginated_dog_repository.RemotePaginatedDogRepositoryAdapter
-import com.example.decoupled_android_search.concrete_infra.remote_paginated_dog_repository.endpoits.DogsEndpoints
-import com.example.decoupled_android_search.core.use_cases.dog_search.DogSearchInteractor
+import com.example.decoupled_android_search.concrete_infra.di.DaggerConcreteInfraComponent
 import com.example.decoupled_android_search.features.search.contract.SearchFilter
+import com.example.decoupled_android_search.features.search.impl.dogs.di.DogPresentationComponent
 import com.example.decoupled_android_search.features.search.impl.dogs.filter.DogFilter
 import com.example.decoupled_android_search.features.search.impl.dogs.ui.search_filter.presenter.DogFilterPresenter
-import com.example.decoupled_android_search.features.search.impl.dogs.ui.search_filter.presenter.DogFilterPresenterImpl
 import com.example.decoupled_android_search.features.search.impl.dogs.ui.search_filter.view.DogFilterView
 import com.google.android.material.snackbar.Snackbar
 import com.tiper.MaterialSpinner
@@ -23,17 +20,24 @@ import kotlinx.android.synthetic.main.activity_dog_filter.confirmButton
 import kotlinx.android.synthetic.main.activity_dog_filter.loadingWidget
 import kotlinx.android.synthetic.main.activity_dog_filter.rootContainer
 import kotlinx.android.synthetic.main.activity_dog_filter.subBreedSpinner
-import okhttp3.OkHttpClient
-import retrofit2.Retrofit
-import retrofit2.converter.gson.GsonConverterFactory
-import java.util.concurrent.TimeUnit
+import javax.inject.Inject
 
 class DogFilterActivity : AppCompatActivity() {
+    @Inject
+    lateinit var _presenter: DogFilterPresenter
     private lateinit var viewModel: DogFilterViewModel
     private lateinit var presenter: DogFilterPresenter
     private lateinit var searchFilter: DogFilter
 
+    private val component: DogPresentationComponent by lazy {
+        DaggerConcreteInfraComponent.create()
+            .dogPresentationComponentBuilder()
+            .addDogFilter(getSearchFilterFromIntent())
+            .build()
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
+        component.inject(this)
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_dog_filter)
 
@@ -68,32 +72,13 @@ class DogFilterActivity : AppCompatActivity() {
     private fun getViewModel() = ViewModelProvider(this).get(DogFilterViewModel::class.java)
 
     private fun getPresenter(view: DogFilterView): DogFilterPresenter {
-        val useCase = getUseCase()
-        val presenter = DogFilterPresenterImpl(useCase)
-        val viewModelFactory = DogFilterPresenterDispatcher.Factory(presenter)
+        val viewModelFactory = DogFilterPresenterDispatcher.Factory(_presenter)
 
         return ViewModelProvider(this, viewModelFactory)
             .get(DogFilterPresenterDispatcher::class.java).apply {
                 setView(view)
                 setFilter(searchFilter)
             }
-    }
-
-    private fun getUseCase(): DogSearchInteractor {
-        val retrofit = Retrofit.Builder()
-            .baseUrl("${BuildConfig.DOG_API_BASE_URL}/")
-            .addConverterFactory(GsonConverterFactory.create())
-            .client(
-                OkHttpClient.Builder()
-                    .connectTimeout(15, TimeUnit.SECONDS)
-                    .readTimeout(15, TimeUnit.SECONDS)
-                    .writeTimeout(15, TimeUnit.SECONDS)
-                    .build()
-            )
-            .build()
-        val endpoint = retrofit.create(DogsEndpoints::class.java)
-        val repository = RemotePaginatedDogRepositoryAdapter(endpoint)
-        return DogSearchInteractor(repository)
     }
 
     private fun subscribeUi() {
