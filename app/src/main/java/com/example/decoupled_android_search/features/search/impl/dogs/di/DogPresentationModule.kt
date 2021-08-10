@@ -4,6 +4,7 @@ import com.example.decoupled_android_search.core.use_cases.dog_search.DogSearchU
 import com.example.decoupled_android_search.features.search.impl.dogs.filter.DogFilter
 import com.example.decoupled_android_search.features.search.impl.dogs.ui.search_filter.presenter.DogFilterPresenter
 import com.example.decoupled_android_search.features.search.impl.dogs.ui.search_filter.presenter.DogFilterPresenterImpl
+import com.example.decoupled_android_search.features.search.impl.dogs.ui.search_filter.view.activity.DogFilterPresenterDispatcher
 import com.example.decoupled_android_search.features.search.impl.dogs.ui.search_results.presenter.DogSearchPresenter
 import com.example.decoupled_android_search.features.search.impl.dogs.ui.search_results.presenter.DogSearchPresenterImpl
 import dagger.Module
@@ -18,4 +19,11 @@ object DogPresentationModule {
     @Provides
     fun provideDogFilterPresenter(useCase: DogSearchUseCase): DogFilterPresenter =
         DogFilterPresenterImpl(useCase)
+
+    @Provides
+    fun provideDogFilterPresenterDispatcherFactory(
+        presenter: DogFilterPresenter
+    ): DogFilterPresenterDispatcher.Factory {
+        return DogFilterPresenterDispatcher.Factory(presenter)
+    }
 }

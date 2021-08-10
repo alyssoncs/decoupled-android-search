@@ -24,10 +24,11 @@ import javax.inject.Inject
 
 class DogFilterActivity : AppCompatActivity() {
     @Inject
-    lateinit var _presenter: DogFilterPresenter
-    private lateinit var viewModel: DogFilterViewModel
-    private lateinit var presenter: DogFilterPresenter
-    private lateinit var searchFilter: DogFilter
+    lateinit var presenterDispatcherFactory: DogFilterPresenterDispatcher.Factory
+
+    private val viewModel: DogFilterViewModel by lazy { createViewModel() }
+    private val presenter: DogFilterPresenter by lazy { createPresenter(viewModel) }
+    private val searchFilter: DogFilter by lazy { getSearchFilterFromIntent() }
 
     private val component: DogPresentationComponent by lazy {
         DaggerConcreteInfraComponent.create()
@@ -41,7 +42,6 @@ class DogFilterActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_dog_filter)
 
-        setUp()
         subscribeUi()
 
         if (savedInstanceState == null)
@@ -50,12 +50,6 @@ class DogFilterActivity : AppCompatActivity() {
         confirmButton.setOnClickListener {
             presenter.onSubmitButtonClick()
         }
-    }
-
-    private fun setUp() {
-        searchFilter = getSearchFilterFromIntent()
-        viewModel = getViewModel()
-        presenter = getPresenter(viewModel)
     }
 
     private fun getSearchFilterFromIntent(): DogFilter {
@@ -69,12 +63,10 @@ class DogFilterActivity : AppCompatActivity() {
             DogFilter.createEmpty()
     }
 
-    private fun getViewModel() = ViewModelProvider(this).get(DogFilterViewModel::class.java)
+    private fun createViewModel() = ViewModelProvider(this).get(DogFilterViewModel::class.java)
 
-    private fun getPresenter(view: DogFilterView): DogFilterPresenter {
-        val viewModelFactory = DogFilterPresenterDispatcher.Factory(_presenter)
-
-        return ViewModelProvider(this, viewModelFactory)
+    private fun createPresenter(view: DogFilterView): DogFilterPresenter {
+        return ViewModelProvider(this, presenterDispatcherFactory)
             .get(DogFilterPresenterDispatcher::class.java).apply {
                 setView(view)
                 setFilter(searchFilter)
