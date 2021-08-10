@@ -23,9 +23,10 @@ import javax.inject.Inject
 class AnimeSearchFragment : SearchContract.SearchableFragment<AnimeFilter>() {
 
     @Inject
-    lateinit var _presenter: AnimeSearchPresenter
-    private lateinit var viewModel: AnimeSearchViewModel
-    private lateinit var presenter: AnimeSearchPresenter
+    lateinit var presenterDispatcherFactory: AnimeSearchPresenterDispatcher.Factory
+
+    private val viewModel: AnimeSearchViewModel by lazy { createViewModel() }
+    private val presenter: AnimeSearchPresenter by lazy { createPresenter(viewModel) }
 
     private val component: AnimePresentationComponent by lazy {
         DaggerConcreteInfraComponent.create()
@@ -51,25 +52,20 @@ class AnimeSearchFragment : SearchContract.SearchableFragment<AnimeFilter>() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        viewModel = getViewModel()
-        presenter = getPresenter(viewModel)
-
         subscribeUi()
 
         if (savedInstanceState == null)
             presenter.onStart()
     }
 
-    private fun getViewModel() = ViewModelProvider(this).get(AnimeSearchViewModel::class.java)
+    private fun createViewModel() = ViewModelProvider(this).get(AnimeSearchViewModel::class.java)
 
-    private fun getPresenter(view: AnimeSearchView): AnimeSearchPresenter {
-        _presenter.apply {
-            setView(view)
-            setFilter(getSearchFilter() ?: AnimeFilter.createEmpty())
-        }
-        val viewModelFactory = AnimeSearchPresenterDispatcher.Factory(_presenter)
-        return ViewModelProvider(this, viewModelFactory)
-            .get(AnimeSearchPresenterDispatcher::class.java)
+    private fun createPresenter(view: AnimeSearchView): AnimeSearchPresenter {
+        return ViewModelProvider(this, presenterDispatcherFactory)
+            .get(AnimeSearchPresenterDispatcher::class.java).apply {
+                setView(view)
+                setFilter(getSearchFilter() ?: AnimeFilter.createEmpty())
+            }
     }
 
     private fun subscribeUi() {
