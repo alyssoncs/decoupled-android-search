@@ -23,9 +23,10 @@ import javax.inject.Inject
 class DogSearchFragment: SearchContract.SearchableFragment<DogFilter>() {
 
     @Inject
-    lateinit var _presenter: DogSearchPresenter
-    private lateinit var viewModel: DogSearchViewModel
-    private lateinit var presenter: DogSearchPresenter
+    lateinit var presenterDispatcherFactory: DogSearchPresenterDispatcher.Factory
+
+    private val viewModel: DogSearchViewModel by lazy { createViewModel() }
+    private val presenter: DogSearchPresenter by lazy { createPresenter(viewModel) }
 
     private val component: DogPresentationComponent by lazy {
         val filter = getSearchFilter() ?: DogFilter.createEmpty()
@@ -54,23 +55,19 @@ class DogSearchFragment: SearchContract.SearchableFragment<DogFilter>() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        viewModel = getViewModel()
-        presenter = getPresenter(viewModel)
-
         subscribeUi()
 
         if (savedInstanceState == null)
             presenter.onStart()
     }
 
-    private fun getViewModel() = ViewModelProvider(this).get(DogSearchViewModel::class.java)
+    private fun createViewModel() = ViewModelProvider(this).get(DogSearchViewModel::class.java)
 
-    private fun getPresenter(view: DogSearchView): DogSearchPresenter {
-        _presenter.setView(view)
-        val viewModelFactory = DogSearchPresenterDispatcher.Factory(_presenter)
-
-        return ViewModelProvider(this, viewModelFactory)
-            .get(DogSearchPresenterDispatcher::class.java)
+    private fun createPresenter(view: DogSearchView): DogSearchPresenter {
+        return ViewModelProvider(this, presenterDispatcherFactory)
+            .get(DogSearchPresenterDispatcher::class.java).apply {
+                setView(view)
+            }
     }
 
     private fun subscribeUi() {
