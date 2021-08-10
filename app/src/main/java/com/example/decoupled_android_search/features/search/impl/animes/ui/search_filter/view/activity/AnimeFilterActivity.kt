@@ -31,11 +31,11 @@ fun View.setVisible(visible: Boolean) {
 class AnimeFilterActivity : AppCompatActivity() {
 
     @Inject
-    lateinit var _presenter: AnimeFilterPresenter
-    private lateinit var viewModel: AnimeFilterViewModel
-    private lateinit var presenter: AnimeFilterPresenter
+    lateinit var presenterDispatcherFactory: AnimeFilterPresenterDispatcher.Factory
 
-    private lateinit var searchFilter: AnimeFilter
+    private val viewModel: AnimeFilterViewModel by lazy { createViewModel() }
+    private val presenter: AnimeFilterPresenter by lazy { createPresenter(viewModel) }
+    private val searchFilter: AnimeFilter by lazy { getSearchFilterFromIntent() }
 
     private val component: AnimePresentationComponent by lazy {
         DaggerConcreteInfraComponent.create()
@@ -47,18 +47,11 @@ class AnimeFilterActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_anime_filter)
 
-        setUp()
         prepareListeners()
         observeViewModel()
 
         if (savedInstanceState == null)
             presenter.onStart(searchFilter)
-    }
-
-    private fun setUp() {
-        searchFilter = getSearchFilterFromIntent()
-        viewModel = getViewModel()
-        presenter = getPresenter(viewModel)
     }
 
     private fun prepareListeners() {
@@ -91,12 +84,10 @@ class AnimeFilterActivity : AppCompatActivity() {
             AnimeFilter.createEmpty()
     }
 
-    private fun getViewModel() = ViewModelProvider(this).get(AnimeFilterViewModel::class.java)
+    private fun createViewModel() = ViewModelProvider(this).get(AnimeFilterViewModel::class.java)
 
-    private fun getPresenter(view: AnimeFilterView): AnimeFilterPresenter {
-        val viewModelFactory = AnimeFilterPresenterDispatcher.Factory(_presenter)
-
-        return ViewModelProvider(this, viewModelFactory)
+    private fun createPresenter(view: AnimeFilterView): AnimeFilterPresenter {
+        return ViewModelProvider(this, presenterDispatcherFactory)
             .get(AnimeFilterPresenterDispatcher::class.java).apply {
                 setView(view)
             }
